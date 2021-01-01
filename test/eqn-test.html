@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Equation Test</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Equation Test</div>
+      <div id="content">
+<h1 id="equation-test">Equation Test!</h1>
+<p>This is an inline formula: ๜a_1^2 + a_2^2 = \frac{1}{2}a_3^2๞. Yay! ๜\mathbf{x} \in \mathbb{R}^d๞.</p>
+<p>Invalid commands: ๜\al + \be = \ce๞.</p>
+<p>Display math: ๝x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}๟</p>
+<p>Matrix: ๝A = \begin{bmatrix}1 &amp; 2 \\ 3 &amp; 4\end{bmatrix}๟</p>
+<p>Equation system:
+๝\begin{aligned} 2a + 3b &amp;= 4 \\ 5a + 7b &amp;= 9 \end{aligned}๟</p>
+<p>No space: (๜i = 1, \dots, n๞; ๜j = i + 1๞)</p>
+<p>A bunch of spaces: ๜ab\,a\;\;\;b๞</p>
+<p>Escaped {math}: I bought $5 milk {and} $10 cake.</p>
+<p>abc๜\abc^2๞abc I think 4 &lt; 5 (๜4 &lt; 5๞)</p>
+<p><em>a = b</em> (๜*a = b*๞)</p>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-01T21:44:06.561005</div>
+    </div>
+  </div>
+</body>
+
+</html>
