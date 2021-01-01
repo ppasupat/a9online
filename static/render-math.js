@@ -7,8 +7,8 @@ let RENDER_MATH = (function () {
     // Invoke KaTeX
     renderMathInElement(element, {
       delimiters: [
-        {left: "\u0e5d", right: "\u0e5f", display: true},
-        {left: "\u0e5c", right: "\u0e5e", display: false},
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false},
       ],
       throwOnError: false,
     });
