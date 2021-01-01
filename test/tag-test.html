@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Equation Test</title>
+  <title>HTML Tag Test</title>
   <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
   <link rel="stylesheet" href="/a9online/static/reset.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
@@ -19,23 +19,24 @@
 <body onload="RENDER_MATH.render(document.body);">
   <div id="wrapper">
     <div id="content-frame">
-      <div id="content-name">Equation Test</div>
+      <div id="content-name">HTML Tag Test</div>
       <div id="content">
-<h1 id="equation-test">Equation Test!</h1>
-<p>This is an inline formula: $a_1^2 + a_2^2 = \frac{1}{2}a_3^2$. Yay! $\mathbf{x} \in \mathbb{R}^d$.</p>
-<p>Invalid commands: $\al + \be = \ce$.</p>
-<p>Display math: $$x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}$$</p>
-<p>Matrix: $$A = \begin{bmatrix}1 &amp; 2 \\ 3 &amp; 4\end{bmatrix}$$</p>
-<p>Equation system:
-$$\begin{aligned} 2a + 3b &amp;= 4 \\ 5a + 7b &amp;= 9 \end{aligned}$$</p>
-<p>No space: ($i = 1, \dots, n$; $j = i + 1$)</p>
-<p>A bunch of spaces: $ab\,a\;\;\;b$</p>
-<p>Escaped {math}: I bought ＄5 milk {and} ＄10 cake.</p>
-<p>abc$\abc^2$abc I think 4 &lt; 5 ($4 &lt; 5$)</p>
-<p><em>a = b</em> ($*a = b*$)</p>
+<div style="background:yellow;">This is a **book**</div>
 
+<div markdown="1" style="background:yellow;">This is a **book**</div>
+
+<div style="background:yellow;">
+
+<p>This is a <strong>book</strong></p>
+</div>
+
+<svg width="100" height="100" stroke="black" fill="white">
+    <g transform="translate(50,20)"><circle r="16" fill="white"></circle><foreignObject x="-16" y="-16" width="32" height="32"><div style="line-height: 32px; text-align: center;">$x$</div></foreignObject></g>
+    <g transform="translate(50,80)"><circle r="16" fill="white"></circle><foreignObject x="-16" y="-16" width="32" height="32"><div style="line-height: 32px; text-align: center;">$y$</div></foreignObject></g>
+    <g><line x1="50" y1="36" x2="50" y2="64" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(50,64) rotate(90)"></polygon></g>
+</svg>
       </div>
-      <div id="content-time">Exported: 2021-01-01T22:42:23.256455</div>
+      <div id="content-time">Exported: 2021-01-01T22:42:15.418465</div>
     </div>
   </div>
 </body>
