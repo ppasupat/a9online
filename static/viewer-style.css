@@ -1,40 +1,12 @@
-/*================================================================
-  Reset */
-
 body {
-  position: absolute;
-  font-family: Arial, Liberation Sans, DejaVu Sans, Sans, sans-serif;
-  width: 100%;
+  background-color: #eee;
 }
-
-body, #cover {
-  background-color: #EEE;
-}
-
-/*================================================================
-  Common Formatting */
-
-.hidden {display: none;}
-.selected {background-color: #DEF;}
-.centerize {text-align: center; margin: 0 auto;}
-.unselectable {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: default;
-}
-strong {font-weight: bold;}
-
-/*================================================================
-  Layout */
 
 #content-frame {
   max-width: 720px;
   margin: 1em auto;
   padding: 1em 10px;
+  background-color: white;
 }
 
 @media (max-width: 600px) {
@@ -58,53 +30,4 @@ strong {font-weight: bold;}
   font-size: 10px;
   margin-right: 10px;
   padding-bottom: 10px;
-}
-
-.buffer {
-  visibility: hidden;
-  position: absolute;
-}
-
-#cover {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  z-index: 5;
-}
-
-#cover div {
-  margin: 2em;
-  margin-top: 3em;
-  font-size: 3em;
-  color: #AAA;
-}
-
-#cover #nonote {display: block;}
-#cover.loading #nonote {display: none;}
-#cover #loading {display: none;}
-#cover.loading #loading {display: block;}
-div.rendering {
-  padding: 0.5em;
-  font-size: 2em;
-  color: #CCCCCF;
-  background-color: #F6F6FA;
-  position: absolute;
-  right: 1em;
-  top: 0.4em;
-  border-radius: 3px;
-}
-
-#error {
-  position: fixed;
-  padding: 20px;
-  margin-top: 3em;
-  margin-left: -210px;
-  width: 400px;
-  left: 50%;
-  z-index: 7;
-  border: 1px solid #CD0A0A;
-  color: #CD0A0A;
-  background-color: #FEF6F3;
-  border-radius: 4px;
 }

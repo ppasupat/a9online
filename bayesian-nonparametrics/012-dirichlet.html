@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dirichlet Distribution</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Dirichlet Distribution</div>
+      <div id="content">
+<p><a href="/a9online/bayesian-nonparametrics/000-outline.html">← Back to Outline</a></p>
+<p><strong>Dirichlet distribution</strong> is a conjugate prior of the multinomial distribution. Each sample from Dirichlet distribution $\Mr{Dir}(\alpha_1, \dots, \alpha_K)$ is a $K$-dimensional vector $\pi = (\pi_1, \dots, \pi_K)$ such that $\sum_i \pi_i = 1$.</p>
+<h1 id="properties">Properties</h1>
+<p>Let $\alpha = (\alpha_1, \dots, \alpha_K)$.</p>
+<ul>
+<li><p>If $\pi \sim \Mr{Dir}(\alpha_1, \dots, \alpha_k)$, then
+  $$\prob{\pi\mid\alpha} = \frac{\Gamma(\sum a_j)}{\prod \Gamma(\alpha_j)} \prod_{j=1}^K \pi_j^{\alpha_j - 1} \propto \prod_{j=1}^K \pi_j^{\alpha_j - 1}$$</p>
+</li>
+<li><p>$\exx{\alpha}{\pi_j} = \alpha_j / (\alpha_1 + \dots + \alpha_K)$</p>
+</li>
+<li><p>(<strong>Agglomeration</strong>) If $(\pi_1, \dots, \pi_K) \sim \Mr{Dir}(\alpha_1, \dots, \alpha_K)$, then
+  $$(\pi_1 + \pi_2, \pi_3, \dots, \pi_K) \sim \Mr{Dir}(\alpha_1 + \alpha_2, \alpha_3, \dots, \alpha_K)$$</p>
+</li>
+<li><p>Dirichlet distribution is a conjugate prior of the multinomial distribution. This can be shown by calculating the posterior
+  $$\begin{aligned}   \prob{\pi\midd\set{x^{(1)}, \dots, x^{(L)}}, \alpha}   &amp;\propto \prob{\pi\mid\alpha}\prob{\set{x^{(1)}, \dots, x^{(L)}}\midd\pi} \\   &amp;\propto \prod_j \pi_j^{\alpha_j - 1} \cdot \prod_j \pi_j^{C_j}   \end{aligned}$$
+  where $C_j$ is the number of times we see $j$ among the $x\i$'s. Therefore,
+  $$\pi\mid\set{x^{(1)}, \dots, x^{(L)}} \sim \Mr{Dir}(\alpha_1 + C_1, \dots, \alpha_K + C_K)$$</p>
+</li>
+</ul>
+<h1 id="intuitions">Intuitions</h1>
+<p>Visualization of Dirichlet distribution (lighter = higher density):</p>
+<p><img src="/a9online/bayesian-nonparametrics/dp-dirichlet.png" alt="Dirichlet Distribution" title="Dirichlet Distribution"></p>
+<p>Note that $\Mr{Dir}(1,1,1)$ is the uniform distribution. We often use $\alpha &lt; 1$ since the distribution will prefer equal-sized clusters.</p>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-02T21:20:15.400057</div>
+    </div>
+  </div>
+</body>
+
+</html>

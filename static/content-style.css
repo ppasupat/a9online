@@ -1,9 +1,5 @@
-#content-frame {
-  background-color: #FAFAFA;
-}
-
 #content {
-  font-size: 14px;
+  font-size: 15px;
   font-family: Arial, "Liberation Sans", sans-serif;
   /* These will make the scrolling correct */
   border-top: 1px solid transparent;
