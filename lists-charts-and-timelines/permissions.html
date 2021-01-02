@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Permissions</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Permissions</div>
+      <div id="content">
+<h1 id="unix-permissions">UNIX Permissions</h1>
+<p><strong><em>Website</em></strong> <a href="http://en.wikipedia.org/wiki/File_system_permissions" target="_blank">http://en.wikipedia.org/wiki/File_system_permissions</a></p>
+<ul>
+<li>When a file is created, its permission is restricted by the umask of the process that created the file.<ul>
+<li>umask only <strong>strips</strong> permissions. For example, <code>umask 0077</code> will strip all permissions for group and other, while <code>umask 0022</code> makes stuff read-only by non-owner.</li>
+</ul>
+</li>
+<li>Unlike ACL, the permissions are not inherited from the parent directory.</li>
+</ul>
+<h2 id="permissions-modes-for-classes">Permissions (Modes) for Classes</h2>
+<p><strong>Clases</strong> are user/owner (<code>u</code>), group (<code>g</code>), and other (<code>o</code>).</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>File</th>
+<th>Directory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Read (<code>r</code>)</td>
+<td>Read the file</td>
+<td>Read the <strong>names</strong> of the files (but not other metadata)</td>
+</tr>
+<tr>
+<td>Write (<code>w</code>)</td>
+<td>Modify the file</td>
+<td>Create, delete, or rename files / directories</td>
+</tr>
+<tr>
+<td>Execute (<code>x</code>)</td>
+<td>Execute the file</td>
+<td>Access the content and metadata of a file whose <strong>filename is known</strong></td>
+</tr>
+</tbody></table></div>
+<h2 id="attribute-bits">Attribute Bits</h2>
+<p>These attributes do not belong to any class; they are properties of the file / directory.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th></th>
+<th>File</th>
+<th>Directory</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>set user ID (setuid) (<code>s</code>/<code>S</code>)</td>
+<td>When executed, the resulting process gets effective user ID from the file's owner. This allows the person who executes the file to masquerade as someone else (e.g. root, which of course has security risk)</td>
+<td>-</td>
+</tr>
+<tr>
+<td>set group ID (setgid) (<code>s</code>/<code>S</code>)</td>
+<td>When executed, the resulting process gets effective group ID from the file's group.</td>
+<td>Newly created files / directories will inherit the group from that directory (instead of the default = primary group of the effective user)</td>
+</tr>
+<tr>
+<td>sticky (<code>t</code>/<code>T</code>)</td>
+<td>-</td>
+<td>Forbid people from renaming, moving, or deleting files that they do not own. (The directory's owner and superusers are exempt.)</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><code>s</code> and <code>t</code> = executable. <code>S</code> and <code>T</code> = not executable.</li>
+<li>To set setuid and setgid separately, use chmod with numeric code (setuid = 4000, setgid = 2000, sticky = 1000)</li>
+</ul>
+<h2 id="symbolic-notation">Symbolic Notation</h2>
+<pre><code>drwxr-xr-x 26 root root 4096 Sep 22 09:29 /</code></pre>
+<ul>
+<li>First character: file type<ul>
+<li><code>d</code> = directory</li>
+<li><code>l</code> = symlink</li>
+<li><code>p</code> = named pipe</li>
+<li><code>s</code> = socket</li>
+<li><code>c</code> = character device (stream only / no random access)</li>
+<li><code>b</code> = block device (allow random access)</li>
+</ul>
+</li>
+<li>Then we have <code>uuugggooo</code> where each class has <code>rwx</code> bits</li>
+<li>Apart from <code>x</code>, the last character of each class can also be <code>s</code>, <code>t</code>, <code>S</code>, or <code>T</code></li>
+</ul>
+<h1 id="afs-permissions">AFS Permissions</h1>
+<p><strong><em>Website</em></strong> <a href="https://sipb.mit.edu/doc/afs-and-you/#ControllingWhocanAccessFiles" target="_blank">https://sipb.mit.edu/doc/afs-and-you/#ControllingWhocanAccessFiles</a></p>
+<ul>
+<li>AFS uses <strong>ACL</strong> (access control list), which assigns permission <strong>per directory</strong> and ignore UNIX permissions. (Exception: the UNIX execute bit is still used)</li>
+<li>When a directory is created, it inherits the permissions from its parent directory.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Code</th>
+<th>Rights</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>read</td>
+<td><code>r</code></td>
+<td>See the contents of the files</td>
+</tr>
+<tr>
+<td>list</td>
+<td><code>l</code></td>
+<td>List filenames + See permission of the directory</td>
+</tr>
+<tr>
+<td>insert</td>
+<td><code>i</code></td>
+<td>Create files or directories in the directory</td>
+</tr>
+<tr>
+<td>delete</td>
+<td><code>d</code></td>
+<td>Delete files or directories in the directory</td>
+</tr>
+<tr>
+<td>write</td>
+<td><code>w</code></td>
+<td>Change the contents of the files</td>
+</tr>
+<tr>
+<td>lock</td>
+<td><code>k</code></td>
+<td>Lock files (not that useful)</td>
+</tr>
+<tr>
+<td>admin</td>
+<td><code>a</code></td>
+<td>Change permission of the directory (but not subdirectories)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>read</code></td>
+<td>Shorthand for <code>rl</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>write</code></td>
+<td>Shorthand for <code>rlidwk</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>all</code></td>
+<td>Shorthand for <code>rlidwka</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>none</code></td>
+<td>Shorthand for empty string</td>
+</tr>
+</tbody></table></div>
+<h2 id="commands">Commands</h2>
+<ul>
+<li><code>fs sa &lt;directory&gt; [&lt;user|group&gt; &lt;permissions&gt;]+</code></li>
+<li><code>find &lt;maindirectory&gt; -type d -exec fs sa {} &lt;user|group&gt; &lt;permissions&gt; \;</code></li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-02T22:35:50.488792</div>
+    </div>
+  </div>
+</body>
+
+</html>
