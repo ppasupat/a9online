@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reinforcement Learning: Policy Gradient</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Reinforcement Learning: Policy Gradient</div>
+      <div id="content">
+<h1 id="reinforcement-learning">Reinforcement Learning</h1>
+<p><strong>Reinforcement Learning</strong> is characterized by 2 properties:</p>
+<ul>
+<li><strong>Bandit Feedback</strong>: The feedback is available only for the chosen action.</li>
+<li><strong>Delayed Feedback</strong>: The feedback is available only after several actions. This also introduce the notion of <strong>states</strong>.</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th align="center">Learning Method</th>
+<th align="center">Bandit Feedback</th>
+<th align="center">Delayed Feedback</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Online Learning</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="center">Multi-arm Bandit</td>
+<td align="center">Yes (duh)</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="center">Reinforcement Learning</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+</tr>
+</tbody></table></div>
+<h1 id="markov-decision-process">Markov Decision Process</h1>
+<p>This should be a review of CS229. In MDP, we have</p>
+<ul>
+<li>$S$ = set of states</li>
+<li>$A$ = set of actions</li>
+<li>$T(\cdot,\cdot)$ = state transition function for finding the new state $s' \sim T(s,a)$.</li>
+<li>$R(\cdot,\cdot,\cdot)$ = reward function. The immediate reward is $R(s,a,s')$.</li>
+</ul>
+<p>We can choose a policy $\pi$: for a given state $s$, the chosen action  is $a \sim \pi(\cdot)$. Our goal is to find a policy $\pi$ that maximizes the reward.</p>
+<p><strong><em>Def</em></strong> For a policy $\pi$, the <strong>value</strong> is the expected reward when we follow the policy:
+$$V^\pi(s) = \exx{a\sim\pi(s)}{\exx{s'\sim T(s,a)}{R(s,a,s') + \gamma V^\pi(s')}}$$
+where $\gamma &lt; 1$ is used to make discounted reward. People just set $\gamma$ at 0.9.</p>
+<p>We also define an auxilliary variable:</p>
+<p><strong><em>Def</em></strong> For a policy $\pi$, the <strong>action-value</strong> function is
+$$Q^\pi(s,a) = \exx{s'\sim T(s,a)}{R(s,a,s') + \gamma\exx{a'\sim\pi(s')}{Q^\pi(s',a')}}$$</p>
+<p>If we know $T$ and $R$, then we can use <strong>Bellman's equations</strong> to</p>
+<ul>
+<li>compute the value $V^\pi$ and $Q^\pi$</li>
+<li>solve for the optimal policy $\pi^*$ that maximizes $V^\pi$</li>
+</ul>
+<p>However, we usually don't know $T$, so we need to do both tasks approximately using MC simulation.</p>
+<h2 id="estimating-the-value">Estimating the Value</h2>
+<p><strong><em>Problem</em></strong> Given a policy $\pi$ and an MC simulation, we want to estimate $Q^\pi$.</p>
+<p>Let $Q^\pi_{(t)}(s,a)$ be the estimate in iteration $t$.</p>
+<p><strong><em>Def</em></strong> The <strong>temporal difference</strong> is
+$$\delta_{(t)}(s,a,s') = Q^\pi_{(t)}(s,a) - \nail{r + \gamma\exx{a'\sim\pi(s')}{Q^\pi_{(t)}(s',a')}}$$</p>
+<p>If our estimate is correct ($Q^\pi_{(t)}(s,a) = Q^\pi(s,a)$), then we would get
+$$\exx{s'\sim T(s,a)}{\delta_{(t)}(s,a,s')} = 0$$</p>
+<p>So we are motivated to do "gradient" descent:
+$$Q^\pi_{(t+1)}(s,a) \gets Q^\pi_{(t)}(s,a) - \alpha_{(t)}\delta_{(t)}(s,a,s'_{\Mr{MC}})$$
+where $s'_{\Mr{MC}}$ is obtained from MC simulation.</p>
+<h2 id="finding-the-optimal-policy">Finding the Optimal Policy</h2>
+<p><strong><em>Problem</em></strong> Given an MC simulation, we want to find the optimal $\pi^*$.</p>
+<p>Consider $\pi^*$ and the corresponding $Q^{\pi^*}$. From the last section,
+$$\delta_{(t)}(s,a,s') = Q^{\pi^*}_{(t)}(s,a) - \nail{r + \gamma{\color{blue}{\exx{a'\sim\pi^*(s')}{Q^{\pi^*}_{(t)}(s',a')}}}}$$
+$$Q^{\pi^*}_{(t+1)}(s,a) \gets Q^{\pi^*}_{(t)}(s,a) - \alpha_{(t)}\delta_{(t)}(s,a,s'_{\Mr{MC}})$$</p>
+<p>For the optimal $\pi^*$, we can replace the expectation term (in blue) in 2 ways:</p>
+<ul>
+<li><strong>Q-Learning</strong>: Replace with
+  $$\max_{a'} Q^{\pi^*}_{(t)}(s',a')$$
+  This gives an <strong>off-policy</strong> update which encourages <strong>exploitation</strong>. It will give a better final policy.</li>
+<li><strong>SARSA</strong>: Replace with
+  $$Q^{\pi^*}_{(t)}(s',\pi(s'))$$
+  This gives an <strong>on-policy</strong> update which encourages <strong>exploration</strong>. It will give a better online performance. <em>(SARSA stands for state-action-reward-state-action)</em></li>
+</ul>
+<p>Finally, after $Q^{\pi^*}$ is computed, we can find $\pi^*$ using
+$$\pi^*(s) = \argmax_a Q^{\pi^*}(s,a)$$</p>
+<h1 id="critic-and-actor-methods">Critic and Actor Methods</h1>
+<p>Using the method above, we want to see if the approximation converges to the actual value of $Q$.</p>
+<p><strong><em>Thm</em></strong> If $Q$ is tabular (i.e., we know $Q(s,a)$ for all $s$ and $a$), then both on-policy and off-policy updates will make $Q^{(t)}$ converge to $Q^{\pi^*}$ when the learning rate $\alpha_{(t)}$ is $\approx \frac{1}{t}$. (The actual conditions are $\sum\alpha_{(t)} \to \infty$ and $\sum\alpha_{(t)}^2 &lt; \infty$.)</p>
+<p>However, tabular $Q$ is usually impossible (especially in continuous state or action space).</p>
+<h2 id="critic-method-approximate-the-value">Critic Method: Approximate the Value</h2>
+<p>To reduce the curse of dimensionality, we can featurize the value function. For example, we can use <strong>linear</strong> value function:
+$$Q(s,a) = \theta\T \phi(s,a)$$
+and do gradient update on the value function:
+$$\hat\theta_{(t)} \gets \hat\theta_{(t-1)} + \alpha_{(t)}\delta_{(t)}\phi(s,a)$$
+This update is equivalent to minimizing the loss function
+$$\sum_{(s,a,s',r)}\crab{Q_\theta(s,a) - \nail{r + \gamma Q_\theta(s',a)}}^2$$
+and will converge to something (with some guarantee on $\norm{V^* - \Pi V^*}$ in on-policy update, where $\Pi$ projects to the set of linear value functions). Of course, we can as well use non-linear value functions (e.g., neural network or non-parametric models).</p>
+<p>As mentioned before, after we get the optimal $Q$, we can find the optimal $\pi$ using
+$$\pi^*(s) = \argmax_a Q^{\pi^*}(s,a)$$
+Note that this may be impossible if the action space is continuous.</p>
+<h2 id="actor-method-approximate-the-policy">Actor Method: Approximate the Policy</h2>
+<p>In the critic method, we find the optimal policy $\pi^*$ by optimizing the value $Q^{\pi^*}$. An alternative approach is to update the policy directly.</p>
+<p>In the <strong>actor method</strong>, we approximate the policy as
+$$\pi_\theta(s,a)\propto \exp\crab{\theta\T\psi(s,a)}$$
+and update $\pi$ (i.e., update $\theta$) directly from the samples using the <strong>policy gradient</strong> update:
+$$\theta \gets \theta + \alpha\nabla_\theta J(\theta)$$
+where $J(\theta)$ is the expected reward over all trajectories:
+$$\begin{aligned} J(\theta) &amp;= \exx{\pi_\theta(s,a)}{Q(s,a)} \\ \nabla_\theta J(\theta) &amp;= \exx{\pi_\theta(s,a)}{\nabla_\theta \log \pi_\theta(s,a) Q(s,a)} \end{aligned}$$</p>
+<p>If we want to use MC estimation, we can write
+$$\begin{aligned} J(\theta) &amp;= \ex{\sum_k \gamma^k r_k} \qquad \text{(} k = \text{time step)}\\ &amp;= \sum_s\crab{\hat p(s) \sum_a \pi_\theta(s,a)\nail{\gamma^k R(s,a)}} \\ &amp;\approx \sum_{(s,a,r)\in\Mr{MC}}\pi_\theta(s,a)(\gamma^k r) \end{aligned}$$</p>
+<p>The actor method has several advantages:</p>
+<ul>
+<li>Do not have to compute $\argmax_a$ over action space</li>
+<li>Directly solve what we care about (i.e., $\pi^*$)</li>
+<li>It's quite non-deterministic and work with non-stationary MDPs</li>
+</ul>
+<p>However, the method suffers from high variance.</p>
+<h2 id="actor-critic-method">Actor-Critic Method</h2>
+<p>In the actor method, if we also approximate $Q(s,a)$ in $J$ (e.g., as a linear value function), then we get an actor-critic method.</p>
+<p>Generally, the actor and actor-critic methods usually win.</p>
+<h1 id="reference">Reference</h1>
+<ul>
+<li>Arun's notes</li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-03T10:00:36.192600</div>
+    </div>
+  </div>
+</body>
+
+</html>
