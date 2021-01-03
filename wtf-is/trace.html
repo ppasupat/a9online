@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trace</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Trace</div>
+      <div id="content">
+<h1 id="definition">Definition</h1>
+<p>For an $n\times n$ square matrix $A$, the <strong>trace</strong> of $A$ is
+$$\tr(A) = \sum_{i=1}^n a_{ii}$$</p>
+<h1 id="properties">Properties</h1>
+<ul>
+<li>$\tr(A + B) = \tr(A) + \tr(B)$</li>
+<li>$\tr(cA) = c\tr(A)$</li>
+<li>$\tr(A\T) = \tr(A)$</li>
+<li>$\tr(X\T Y) = \tr(XY\T) = \tr(Y\T X) = \tr(YX\T) = \sum_{i,j}X_{ij}Y_{ij}$</li>
+<li>$\tr(AB) = \tr(BA)$</li>
+<li>$\tr(ABCD) = \tr(BCDA)$ (cyclic permutation only)</li>
+<li>$\tr(P^{-1}AP) = \tr(APP^{-1}) = \tr(A)$ (changing basis does not change the trace)</li>
+<li>$\tr(A) = \sum_i \lambda_i$ (c.f. $\det(A) = \prod_i \lambda_i$)</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Trace_(linear_algebra)" target="_blank">http://en.wikipedia.org/wiki/Trace_(linear_algebra)</a></li>
+<li><a href="http://www.cs.berkeley.edu/~jduchi/projects/matrix_prop.pdf" target="_blank">http://www.cs.berkeley.edu/~jduchi/projects/matrix_prop.pdf</a></li>
+<li><a href="http://www.mit.edu/~wingated/stuff_i_use/matrix_cookbook.pdf" target="_blank">http://www.mit.edu/~wingated/stuff_i_use/matrix_cookbook.pdf</a></li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-03T09:29:43.128834</div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transpose &amp; Conjugate Transpose</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Transpose &amp; Conjugate Transpose</div>
+      <div id="content">
+<h1 id="definitions">Definitions</h1>
+<p>The <strong>transpose</strong> of a matrix $A$ is $A\T$ with entries
+$$A\T_{ij} = A_{ji}$$
+and the <strong>conjugate transpose</strong> of $A$ is $A^*$ (or $A^\textrm{H}$) with entries
+$$A^*_{ij} = \baa{A_{ji}}$$</p>
+<p>We have $A^* = \baa{A\T}$. And when $A$ is real, $A^* = A\T$.</p>
+<h1 id="special-matrices">Special Matrices</h1>
+<p>Let $A$ be a square matrix. The following properties have fancy names.</p>
+<ul>
+<li><strong>Symmetric</strong> $$A\T = A$$</li>
+<li><strong>Hermitian</strong> $$A\T = A^*$$</li>
+<li><strong>Skew-Symmetric</strong> $$A\T = -A$$</li>
+<li><strong>Skew-Hermitian</strong> $$A\T = -A^*$$</li>
+<li><strong>Orthogonal</strong> (although the columns are <strong>orthonormal</strong>) $$A\T = A^{-1}$$</li>
+<li><strong>Unitary</strong> $$A^* = A^{-1}$$</li>
+<li><strong>Normal</strong> ($\supset$ Unitary) $$A^*A = AA^*$$</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Transpose" target="_blank">http://en.wikipedia.org/wiki/Transpose</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Conjugate_transpose" target="_blank">http://en.wikipedia.org/wiki/Conjugate_transpose</a></li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-02T23:38:23.288533</div>
+    </div>
+  </div>
+</body>
+
+</html>
