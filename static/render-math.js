@@ -37,7 +37,7 @@ let RENDER_MATH = (function () {
     "\\matx": "\\begin{bmatrix}#1\\end{bmatrix}",
     "\\T": "^\\mathsf{T}",
     "\\tr": "\\operatorname{tr}",
-    "\\cases": "\\left\\{ \\begin{array}{ll}#1\\end{array}\\right.",
+    "\\cases": "\\begin{cases}#1\\end{cases}",
     "\\cif": "\\text{if } #1",
     "\\cwhen": "\\text{when } #1",
     "\\cotherw": "\\text{otherwise}",
