@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML Tag Test</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">HTML Tag Test</div>
+      <div id="content">
+<div style="background:yellow;">This is a **book** $a^2+b^2=c^2$</div>
+
+<div markdown="1" style="background:yellow;"><p>This is a <strong>book</strong> <code>book</code> $a^2+b^2=c^2$</p>
+</div><div style="background:yellow;">
+This is a **book**
+```
+This is a book.
+```
+$a^2+b^2=c^2$
+</div>
+
+<div style="background:yellow;" markdown="1"><p>This is a <strong>book</strong></p>
+<pre><code>This is a book.</code></pre>
+<p>$a^2+b^2=c^2$</p>
+</div><div style="background:yellow;">
+
+<p>This is a <strong>book</strong></p>
+<pre><code>This is a book.</code></pre>
+<p>$a^2+b^2=c^2$</p>
+</div>
+
+<div style="background:yellow;" markdown="1">
+
+<p>This is a <strong>book</strong></p>
+<pre><code>This is a book.</code></pre>
+<p>$a^2+b^2=c^2$</p>
+</div>
+      </div>
+      <div id="content-time">Exported: 2021-01-03T19:44:16.384901</div>
+    </div>
+  </div>
+</body>
+
+</html>
