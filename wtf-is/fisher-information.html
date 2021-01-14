@@ -28,12 +28,11 @@ $$\Mr{LL}(\theta) = \log p(X\mid \theta)$$
 We define the <strong>score</strong> as
 $$\Mr{score}(\theta) = \fracp{}{\theta} \log p(X\mid \theta)$$
 Under regular conditions, the <em>first</em> moment of the score is 0:
-$$\begin{aligned} \exx{X}{\Mr{score}(\theta)\mid\theta} &amp;= \int \nail{\fracp{}{\theta} \log p(X\mid \theta)} p(x\mid\theta)\,dx \\ &amp;= \int \nail{\frac{1}{p(x\mid \theta)}\fracp{p(x\mid \theta)}{\theta}} p(x\mid\theta)\,dx \\ &amp;= \fracp{}{\theta} \int p(x\mid\theta)\, dx = \fracp{}{\theta} 1 = 0 \end{aligned}$$</p>
+$$\begin{aligned} \exx{X}{\Mr{score}(\theta)\mid\theta} &amp;= \int \nail{\fracp{}{\theta} \log p(x\mid \theta)} p(x\mid\theta)\,dx \\ &amp;= \int \nail{\frac{1}{p(x\mid \theta)} \fracp{}{\theta}p(x\mid \theta)} p(x\mid\theta)\,dx \\ &amp;= \fracp{}{\theta} \int p(x\mid\theta)\, dx = \fracp{}{\theta} 1 = 0 \end{aligned}$$</p>
 <p>The <strong>Fisher information</strong> is the <em>second</em> moment:
 $$I(\theta) = \exx{X}{\nail{\fracp{}{\theta}\log p(X\mid \theta)}^2\midd\theta}$$
-Under regular conditions ($p(X\mid \theta)$ is twice differentiable), chain rule will imply 
-$$I(\theta) = -\exx{X}{\fracp{^2}{\theta^2}\log p(X\mid \theta)\midd \theta}$$
-Note that Fisher information does not depend on a particular $X=x$ since it is integrated out.</p>
+Under regular conditions ($p(X\mid \theta)$ is twice differentiable), we can <em>DO ALGEBRA</em> and get
+$$I(\theta) = -\exx{X}{\fracp{^2}{\theta^2}\log p(X\mid \theta)\midd \theta}$$</p>
 <h2 id="intuition">Intuition</h2>
 <p>Fisher information measures the <strong>curvature</strong> of the log-likelihood. If we plot the log-likelihood, high curvature = deep valley = easy to get optimal $\theta$ = we got a lot of information about $\theta$ from $X$ = high Fisher information.</p>
 <h2 id="properties">Properties</h2>
@@ -46,12 +45,12 @@ Note that Fisher information does not depend on a particular $X=x$ since it is i
   This makes sense: less information means that it is more difficult to pinpoint the estimator, and thus the variance increases.</li>
 <li><strong><em>Definition</em></strong> (<strong>Jeffreys Prior</strong>) The Jeffreys prior is defined as
   $$p_\theta(\theta) \propto \sqrt{I(\theta)}$$
-  Jeffreys prior is an uninformative prior that is not sensitive to parameterization; i.e., both the original $p_\theta(\theta)$ and
+  The Jeffreys prior is an <strong>uninformative</strong> prior that is not sensitive to parameterization; i.e., both the original $p_\theta(\theta)$ and
   $$p_\phi(\phi) = p_\theta(\theta)\abs{\fracd{\theta}{\phi}}$$
   for any reparameterization $\phi = h(\theta)$ will be uninformative.</li>
 </ul>
 <h1 id="fisher-information-matrix">Fisher Information Matrix</h1>
-<p>Suppose we have $N$ parameters $\theta = (\theta_1, \dots, \theta_N)$. Fisher information becomes an $N\times N$ matrix $I(\theta)$ with entries
+<p>Suppose we have $N$ parameters $\theta = (\theta_1, \dots, \theta_N)$. The Fisher information becomes an $N\times N$ matrix $I(\theta)$ with entries
 $$I(\theta)_{ij} = \exx{X}{\nail{\fracp{}{\theta_i} \log p(X\mid \theta)}\nail{\fracp{}{\theta_j} \log p(X\mid \theta)}\midd \theta}$$
 Note that $I(\theta) \succeq 0$.</p>
 <p>Again, under regular conditions, we also get
@@ -66,7 +65,7 @@ $$I(\theta)_{ij} = -\exx{X}{\frac{\partial^2}{\partial \theta_i \partial \theta_
 </ul>
 
       </div>
-      <div id="content-time">Exported: 2021-01-03T09:40:33.660696</div>
+      <div id="content-time">Exported: 2021-01-14T20:37:13.215281</div>
     </div>
   </div>
 </body>
