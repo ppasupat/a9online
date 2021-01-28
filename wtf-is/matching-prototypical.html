@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matching Networks / Prototypical Networks</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Matching Networks / Prototypical Networks</div>
+      <div id="content">
+<h1 id="setup">Setup</h1>
+<h2 id="few-shot-learning-task">Few-shot learning task</h2>
+<ul>
+<li>Abstract formulation:<ul>
+<li>Training data = labeled examples</li>
+<li>Inputs:<ul>
+<li>Support set $S = \set{(x_i, y_i)}$ of input-output pairs</li>
+<li>Unlabeled input $\hat x$</li>
+</ul>
+</li>
+<li>Output = the label $\hat y$ of $\hat x$, or more generally, a distribution $p(\hat y\mid\hat x, S)$</li>
+</ul>
+</li>
+<li>One common instantiation is the <strong>$N$-way $K$-shot classification task</strong>:<ul>
+<li>In each test instance, choose $N$ classes that do not appear in the training data.</li>
+<li>Support set $S$ = $K$ labeled examples for each of $N$ classes</li>
+<li>Input $\hat x$ = an unlabeled example from one of the $N$ classes</li>
+</ul>
+</li>
+</ul>
+<h1 id="matching-networks">Matching Networks</h1>
+<p><strong><em>Paper</em></strong> <cite>(Vinyals et al., NIPS 2016) <a href="https://arxiv.org/pdf/1606.04080.pdf" target="_blank">Matching Networks for One Shot Learning</a></cite></p>
+<h2 id="model">Model</h2>
+<ul>
+<li>The model is a network that predicts a linear combination of the support labels:$$\hat y = \sum_i a(\hat x, x_i)\,y_i$$  where $a$ is an "attention mechanism":$$a(\hat x, x_i) = \frac{\exp\crab{q(\hat x, x_i, S)}}{\sum_{i'} \exp\crab{q(\hat x, x_{i'}, S)}}$$  for some network $q$.<ul>
+<li>One simple choice for $q$ is the cosine similarity between the embeddings of $\hat x$ and $x_i$.</li>
+<li>The final $q$ in this paper treats $S$ as a sequence and then runs a bunch of LSTMs on the embeddings of $S$, $\hat x$, and $x_i$.</li>
+</ul>
+</li>
+<li>To be pendantic, we can write$$p(\hat y \mid \hat x, S) = \sum_i a(\hat x, x_i)\,\II[y_i = \hat y]$$  which is a valid distribution since $\sum_i a(\hat x, x_i) = 1$.</li>
+<li>Train with <strong>meta-learning</strong>. In each episode:<ul>
+<li>Sample a label set $L$ (e.g., take 5 labels from the training data)</li>
+<li>Sample a support set $S$ (e.g., take 5 examples for each label in $L$)</li>
+<li>Sample a training set $B$ (a bunch of examples whose labels are in $L$)</li>
+<li>Maximize$$\sum_{(x, y)\in B}\log p(y\mid x, S)$$</li>
+</ul>
+</li>
+</ul>
+<h2 id="relation-to-other-models">Relation to other models</h2>
+<ul>
+<li>If $a$ is a kernel on $X \times X$, then the model resembles a kernel density estimator.</li>
+<li>If $a$ is a constant for only $m$ closest $x_i$'s and 0 otherwise, then the model resembles $m$-nearest neighbor.</li>
+<li>If we treat $S$ as a memory with $x_i$'s as keys and $y_i$'s as values, then the model is a memory mechanism with an extensible memory.</li>
+</ul>
+<h1 id="prototypical-network">Prototypical network</h1>
+<p><strong><em>Paper</em></strong> <cite>(Snell et al., NIPS 2017) <a href="https://arxiv.org/abs/1703.05175" target="_blank">Prototypical Networks for Few-shot Learning</a></cite></p>
+<p><strong><em>Assumption</em></strong> There exists an embedding space where, for each class, examples from that class cluster around a single <strong>prototype</strong> representation.</p>
+<h2 id="model-1">Model</h2>
+<ul>
+<li>The model produces a <strong>prototype vector</strong> $c_k$ for each label $k$.<ul>
+<li>Let $S_k$ be the set of support examples with label $k$.</li>
+<li>In the standard setup, let $c_k$ = uniform average of the embeddings of examples in $S_k$:$$c_k = \frac{1}{\card{S_k}}\sum_{(x_i, y_i) \in S_k} f(x_i)$$  for some embedder $f$.</li>
+<li>A prototype vector can also be defined for a <strong>zero-shot</strong> setup. Given metadata $v_k$ (e.g., text description) for the label $k$ instead of $S_k$, we can do $c_k = g(v_k)$ for some embedder $g$.</li>
+<li>Prototypical Networks rely on the assumption of "1 prototype per class", and might degrade if this is false. However, a powerful embedder $f$ should be able to produce an embedding space where this assumption is true!</li>
+</ul>
+</li>
+<li>The prototype vector can be used to classify new examples $\hat x$:$$p(\hat y = k\mid \hat x, S) = \frac{\exp\crab{-d(f(\hat x), c_k)}}{\sum_{k'}\exp\crab{-d(f(\hat x), c_{k'})}}$$  for some distance function $d$.<ul>
+<li>The paper finds that <strong>Euclidean distance</strong> works better than cosine distance. (This also applies to Matching Networks.) </li>
+</ul>
+</li>
+<li>For training, use meta-learning like in Matching Networks.<ul>
+<li>The paper finds it helpful to sample <strong>MORE classes</strong> per episode during training than at test time.</li>
+</ul>
+</li>
+</ul>
+<h2 id="relation-to-other-models-1">Relation to other models</h2>
+<ul>
+<li>Comparison with Matching Networks:<ul>
+<li>Matching Networks <strong>compare</strong> $\hat x$ to each support example $x_i$, then <strong>average</strong> the labels.</li>
+<li>Prototypical Networks <strong>average</strong> the support examples $x_i$ for all classes, then <strong>compare</strong> $\hat x$ to them.</li>
+<li>The two are equivalent when $\card{S_k} = 1$ for all classes $k$.</li>
+</ul>
+</li>
+<li>If $d$ is a <a href="https://en.wikipedia.org/wiki/Bregman_divergence" target="_blank">regular Bregman divergence</a>, then the model is equivalent to mixture density estimation with an exponential family density.<ul>
+<li>Euclidean and Mahalanobis distances are regular Bregman divergences, while cosine isn't. (This might be why Euclidean distance works better than cosine.)</li>
+</ul>
+</li>
+<li>If $d$ is Euclidean, the model is a linear model w.r.t. input $f(\hat x)$. The model is still powerful due to the non-linear $f$.</li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-28T21:00:48.014486</div>
+    </div>
+  </div>
+</body>
+
+</html>
