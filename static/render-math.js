@@ -33,6 +33,7 @@ let RENDER_MATH = (function () {
     "\\exx": "\\operatorname{\\mathbb{E}}_{#1}\\!\\left[ #2 \\right]",
     "\\var": "\\operatorname{Var}\\left[ #1 \\right]",
     "\\varr": "\\operatorname{Var}_{#1}\\!\\left[ #2 \\right]",
+    "\\kl": "\\operatorname{KL}\\!\\left( #1 \\parallel #2 \\right)",
     "\\choose": "{\\binom{#1}{#2}}",
     "\\matx": "\\begin{bmatrix}#1\\end{bmatrix}",
     "\\T": "^\\mathsf{T}",

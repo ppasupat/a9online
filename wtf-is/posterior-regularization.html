@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Posterior Regularization</title>
+  <link rel="shortcut icon" href="/a9online/static/icons/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Posterior Regularization</div>
+      <div id="content">
+<p><strong><em>Paper</em></strong> <cite>(Ganchev et al., 2010) <a href="https://jmlr.csail.mit.edu/papers/volume11/ganchev10a/ganchev10a.pdf" target="_blank">Posterior Regularization for Structured Latent Variable Models</a></cite></p>
+<h1 id="setup-generative-model">Setup: Generative Model</h1>
+<ul>
+<li>$x$ = input, $y$ = target</li>
+<li>Labeled examples: $X_L$ = list of inputs; $Y_L$ = list of corresponding labels</li>
+<li>Unlabeled examples: $X$ = list of unlabeled inputs</li>
+<li>Assume a generative model $p_\theta(x, y)$.</li>
+<li>Define the parameter-regularized log-likelihood of the data:$$\begin{aligned}
+  L(\theta) &amp;= \log p_\theta(X_L, Y_L) &amp;&amp;\text{(log-likelihood of supervised data)} \\
+  &amp; + \log \sum_Y p_\theta(X, Y) &amp;&amp;\text{(log-likelihood of unsupervised data)} \\
+  &amp; + \log p(\theta) &amp;&amp;\text{(prior as regularization)}
+  \end{aligned}$$</li>
+<li><strong><em>Example</em></strong> POS tagging with HMM:$$p_\theta(x, y) = \prod_i p_\theta(y_i \mid y_{i-1})\,p_\theta(x_i \mid y_i)$$<ul>
+<li>$p_\theta(X_L, Y_L) = \prod_{(x,y)} p_\theta(x, y)$ over labeled $(x, y)$ pairs.</li>
+<li>$\sum_Y p_\theta(X, Y) = \prod_x \sum_y p_\theta(x, y)$ over unlabeled $x$.<ul>
+<li>The term $\sum_y p_\theta(x, y)$ can be computed with Viterbi.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="posterior-constraints">Posterior Constraints</h1>
+<ul>
+<li>We want to control how $p_\theta(y \mid x)$ behave on unlabeled data.<ul>
+<li>For example, for POS tagging, we might want $y$ to contain at least one verb.</li>
+</ul>
+</li>
+<li>We will enforce such a <strong>constraint in expectation</strong>.<ul>
+<li>For example, let $\phi(x, y) =$ "negative number of verbs in $y$" (the "negative" is to make the sign correct). For each input $x$, we want $\ex{\phi(x, y)} \leq -1$, where the expectation is over $p_\theta(y \mid x)$.</li>
+<li>Such $\phi(x, y)$ is called a <strong>constraint feature</strong>.</li>
+</ul>
+</li>
+<li>More formally, given an input $x$, define a <strong>posterior regularization set</strong>$$Q_x = \set{ q_x(y) \midd \exx{q}{\phi(x, y)} \leq b }$$  Intuitively, this is the set of "allowed" distributions over $y$.</li>
+<li>Now let's generalize from a single input $x$ to the entire corpus $X$. Let$$Q = \set{ q(Y) \midd \exx{q}{\phi(X, Y)} \leq \Mb{b} }$$  where $\Mb{b}$ is a vector with length $|X|$.<ul>
+<li>We can also define multiple constraint features per input. For example, if we want at least one verb and one noun for POS, we can have $2|X|$ constraint features. The vector $\Mb{b}$ will now have length $2|X|$.</li>
+</ul>
+</li>
+<li><strong><em>Goal</em></strong> We want $p_\theta(Y \mid X)$ to be in $Q$ or to be as close to the boundary of $Q$ as possible. So we define a <strong>posterior regularizer</strong>:$$\kl{Q}{p_\theta(Y \mid X)} = \min_{q \in Q} \kl{q(Y)}{p_\theta(Y \mid X)}$$  and subtract it from the log-likelihood to form the posterior-regularized log-likelihood:$$J_Q(\theta) = L(\theta) - \kl{Q}{p_\theta(Y\mid X)}$$</li>
+</ul>
+<h1 id="adding-slack">Adding Slack</h1>
+<ul>
+<li>We can allow some slack using slack variables:$$Q = \set{ q(Y) \midd \exists\Bs{\xi},\; \exx{q}{\phi(X, Y)} - \Mb{b} \leq \Bs{\xi},\; \norm{\Bs{\xi}}_\beta \leq \epsilon }$$  for some norm $\norm{\cdot}_\beta$. We will mainly use this slack-constrained formulation.</li>
+<li>Alternatively, instead of a fixed bound $\epsilon$ on the slack norm, we can penalize the slack norm in the objective function:$$L(\theta) - \crab{\begin{aligned}
+  \min_{q, \Bs{\xi}} &amp;&amp;&amp; \kl{q(Y)}{p_\theta(Y \mid X)} + \sigma\norm{\Bs{\xi}}_\beta \\
+  \text{s.t.} &amp;&amp;&amp; \exx{q}{\phi(X, Y)} - \Mb{b} \leq \Bs{\xi}
+  \end{aligned}}$$  This slack-penalized version works similarly to the slack-constrained version.</li>
+</ul>
+<h1 id="computing-the-posterior-regularizer">Computing the Posterior Regularizer</h1>
+<ul>
+<li><p>Let's write the posterior regularizer (with slack) as a convex optimization problem:</p>
+$$\begin{aligned}
+  \min_{q, \Bs{\xi}} &amp;&amp;&amp; \kl{q(Y)}{p_\theta(Y \mid X)} \\
+  \text{s.t.} &amp;&amp;&amp; \exx{q}{\phi(X, Y)} - \Mb{b} \leq \Bs{\xi} \\
+  &amp;&amp;&amp; \norm{\Bs{\xi}}_\beta \leq \epsilon
+  \end{aligned}$$</li>
+<li><p><em>AFTER SOME ALGEBRA</em>, we can compute the dual problem:</p>
+$$\max_{\Bs{\lambda} \geq 0}\quad - \Mb{b}\T\Bs{\lambda} - \log Z(\Bs{\lambda}) - \epsilon \norm{\Bs{\lambda}}_{\beta^*}$$<p>  where</p>
+$$Z(\Bs{\lambda}) = \sum_Y p_\theta(Y \mid X) \exp\crab{- \Bs{\lambda}\T\phi(X, Y)}$$<p>  and $\norm{\cdot}_{\beta^*}$ is the dual norm of $\norm{\cdot}_{\beta}$.</p>
+</li>
+<li><p>After getting the dual solution $\Bs{\lambda}^*$, the unique primal solution $q^*$ can be computed as</p>
+$$q^*(Y) = \frac{1}{Z(\Bs{\lambda}^*)} p_\theta(Y \mid X) \exp\crab{- {\Bs{\lambda}^*}\T \phi(X, Y)}$$</li>
+<li><p>If $\phi$ can be written as a sum of local features, then optimizing $\Bs{\lambda}$ can (probably) be done by gradient ascent on $\Bs{\lambda}$.</p>
+</li>
+<li><p>If $\phi$ is more complex, efficient inference might be impossible, and one would need to do beam search.</p>
+</li>
+</ul>
+<h1 id="optimizing-the-posterior-regularized-log-likelihood">Optimizing the Posterior-Regularized Log-Likelihood</h1>
+<ul>
+<li>Consider $L(\theta)$. Let's ignore labeled data and prior. We have$$\begin{aligned}
+  L(\theta) &amp;= \log p_\theta(X) \\
+  &amp; = \log \sum_Y p_\theta(X, Y)
+  \end{aligned}$$</li>
+<li>To optimize $L(\theta)$ with EM, we start by lower-bounding $L(\theta)$:$$\begin{aligned}
+  L(\theta)
+  &amp; = \log\crab{\sum_Y q(Y)\,\frac{p_\theta(X, Y)}{q(Y)}} &amp;&amp;\text{(multiply and divide by }q(Y)\text{)} \\
+  &amp; \geq \sum_Y q(Y) \log\crab{\frac{p_\theta(X, Y)}{q(Y)}} &amp;&amp;\text{(Jensen!)} \\
+  &amp; =: F(q, \theta) &amp;&amp;\text{(Let's name it)}
+  \end{aligned}$$</li>
+<li>We maximize this bound $F(q, \theta)$ using <strong>coordinate ascent</strong>: we maintain an estimate $(q, \theta)$ of the solution, and then keep updating $q$ and $\theta$ alternatingly.</li>
+<li><strong><em>E-step</em></strong> Update $q$:$$q_\text{new} = \argmax_q F(q, \theta_\text{old})$$  To compute this, we write$$\begin{aligned}
+  F(q, \theta)
+  &amp; = \sum_Y q(Y) \log\crab{\frac{p_\theta(X, Y)}{q(Y)}} \\
+  &amp; = \sum_Y q(Y) \log\crab{p_\theta(X) p_\theta(Y \mid X)} - \sum_Y q(Y) \log{q(Y)} \\
+  &amp; = \log p_\theta(X) - \sum_Y q(Y) \log\crab{\frac{q(Y)}{p_\theta(Y \mid X)}}
+  \qquad\qquad\nail{\because\sum_Y q(Y) = 1} \\
+  &amp; = L(\theta) - \kl{q(Y)}{p_\theta(Y \mid X)}
+  \end{aligned}$$  Since $L(\theta)$ does not depend on $q$, we get$$q_\text{new}= \argmin_q \kl{q(Y)}{p_\theta(Y \mid X)}$$  Right now $q$ is unconstrained, so we get $q_\text{new} = p_\theta(Y \mid X)$.</li>
+<li><strong><em>M-step</em></strong> Update $\theta$:$$\theta_\text{new} = \argmax_\theta F(q_\text{old}, \theta)$$  To compute this, we write$$\begin{aligned}
+  F(q, \theta)
+  &amp; = \sum_Y q(Y) \log\crab{\frac{p_\theta(X, Y)}{q(Y)}} \\
+  &amp; = \sum_Y q(Y) \log p_\theta(X, Y) - \sum_Y q(Y) \log q(Y) \\
+  &amp; = \exx{q}{\log p_\theta (X, Y)} - \exx{q}{\log q(Y)}
+  \end{aligned}$$  Since $\exx{q}{\log q(Y)}$ does not depend on $\theta$, we get$$\theta_\text{new} = \argmax_\theta \exx{q_\text{old}}{\log p_\theta(X, Y)}$$  This can be computed by "soft-counting" (for simple models) or by a gradient update (for neural networks).</li>
+<li>Now let's add posterior regularization (basically a constraint on $q$):$$J_Q(\theta) = \max_{q \in Q} F(q, \theta)$$  In the E-step, we can no longer go from $\argmin_q \Mr{KL}(\dots)$ to $p_\theta (Y \mid X)$.
+  We need to use the method in the <em>Computing the Posterior Regularizer</em> section above to compute the argmin.</li>
+</ul>
+<h1 id="discriminative-model">Discriminative Model</h1>
+<ul>
+<li>We can also apply posterior regularization to discriminative models.</li>
+<li>The likelihood only has the supervised part:$$L(\theta) = \log p_\theta (Y_L \mid X_L) + \log p(\theta)$$</li>
+<li>The regularized likelihood is still$$J_Q(\theta) = L(\theta) - \kl{Q}{p_\theta(Y \mid X)}$$</li>
+<li>The EM algorithm for optimizing $J_Q(\theta)$ is similar, with the M-step changed to$$\theta_\text{new} = \argmax_\theta \exx{q_\text{old}}{\log p_\theta(Y \mid X)}$$  (The difference is having $p_\theta(Y \mid X)$ instead of $p_\theta(X, Y)$.)</li>
+</ul>
+
+      </div>
+      <div id="content-time">Exported: 2021-01-28T10:42:26.327994</div>
+    </div>
+  </div>
+</body>
+
+</html>
