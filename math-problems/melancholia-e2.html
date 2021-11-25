@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melancholia Ep. 2: Sylvester&apos;s Four-Point Problem and Its Extension</title>
+  <link rel="shortcut icon" href="/a9online/static/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Melancholia Ep. 2: Sylvester&apos;s Four-Point Problem and Its Extension</div>
+      <div id="content">
+<h1 id="problem-statement">Problem Statement</h1>
+<p><strong><em>Origin</em></strong> <em>Korean drama <a href="https://en.wikipedia.org/wiki/Melancholia_%28TV_series%29" target="_blank">Melancholia</a>, Episode 2. Refer to <a href="/a9online/math-problems/melancholia-e1.html">the previous episode</a> for the plot. Depending on your region, you might be able to watch the episode for free on <a href="https://www.viki.com/tv/38037c-melancholia" target="_blank">Rakuten Viki</a>. <strong>Spoilers ahead.</strong></em></p>
+<p>Ji Yoon-soo confronts Baek Seung-yoo about the placement test, but Seung-yoo continues to deny his interest in math. Yoon-soo <a href="https://en.wikipedia.org/wiki/Cheese" target="_blank">tells</a> him that he is special not because of his talent, but because of the way he views the world through mathematical lens. Before she leaves, she gives him the following problem:</p>
+<p><img src="/a9online/math-problems/melancholia/e2.jpg" alt="The not-so-easy problem" title="The not-so-easy problem"></p>
+<blockquote>
+<p>When randomly taking $n$ points (i.i.d. uniform) inside a circle (i.e., on a <a href="https://en.wikipedia.org/wiki/Disk_%28mathematics%29" target="_blank">disk</a>),
+find the probability that these points are the vertices of a convex $n$-gon (where $n \geq 4$).</p>
+</blockquote>
+<p>The problem is tricky enough to become a plot point for many subsequent episode.
+As a starter, try solving the $n = 4$ case first.</p>
+<div class="spoiler" markdown="1">
+
+<h1 id="solution">Solution</h1>
+<h2 id="the-4-point-version">The 4-point version</h2>
+<p>As stated in the title, the problem is a generalization of the classical <a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem</a> from 1865: compute the probability that 4 points randomly chosen in the given region form a convex quadrilateral. This 4-point version was also featured in <a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a> as problem A6 (aka the hardest problem of day 1).</p>
+<h3 id="solution-1">Solution 1</h3>
+<h3 id="solution-2">Solution 2</h3>
+<h3 id="solution-3">Solution 3</h3>
+<p>Before we proceed, here's what happens in Melancholia (Spoilers!):</p>
+<div class="spoiler" markdown="1">
+
+<p>Seung-yoo keeps thinking about the problem. That night, he sneaks into the classroom and begins working on the problem. Yoon-soo sees him and joins in the fun.</p>
+<p>The scene is astonishingly realistic. The actors ooze thrill and excitement while solving the problem, the music is vivifying, and what they write on the board actually traces Solution 1. I'm pretty impressed.</p>
+<p><img src="/a9online/math-problems/melancholia/e2a.jpg" alt="Oh look it's a Jacobian." title="Oh look it's a Jacobian."></p>
+<p><img src="/a9online/math-problems/melancholia/e2b.jpg" alt="Yoon-soo joins in." title="Yoon-soo joins in."></p>
+<p><img src="/a9online/math-problems/melancholia/e2c.jpg" alt="Seung-yoo decomposes the area but gets a sign wrong, and Yoon-soo corrects it" title="Seung-yoo decomposes the area but gets a sign wrong, and Yoon-soo corrects it"></p>
+<p><img src="/a9online/math-problems/melancholia/e2d.jpg" alt="Ah there's a third case. How annoying!" title="Ah there's a third case. How annoying!"></p>
+<p><img src="/a9online/math-problems/melancholia/e2e.jpg" alt="They got the expected area!" title="They got the expected area!"></p>
+</div>
+
+<h2 id="generalization-to-๜n-geq-4๞">Generalization to $n \geq 4$</h2>
+<p>There are a few ways to generalize Sylvester's problem, such as changing the region, adding more dimensions, and adding more points. For example, <cite>(Buchta, 2009) <a href="https://www.semanticscholar.org/paper/On-the-Number-of-Vertices-of-the-Convex-Hull-of-in-Buchta/d2ba03a430e55cb89cd25789738f773551e75093" target="_blank">On the Number of Vertices of the Convex Hull of Random Points in a Square and a Triangle</a></cite> considers $n \geq 4$ points in a triangle or a square.</p>
+<p>Our main question for $n \geq 4$ points on a disk is answered by <cite>(Marckert, 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite>.</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem: Wolfram MathWorld</a></li>
+<li><a href="https://mathworld.wolfram.com/DiskTrianglePicking.html" target="_blank">Disk Triangle Picking: Wolfram MathWorld</a></li>
+<li><cite>(Marckert, Braz. J. Probab. Stat. 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite></li>
+<li><cite>(Sharpe, arXiv 2021) <a href="https://arxiv.org/abs/2109.05961" target="_blank">Random Hyperplanes of a Convex Body, Sylvester's Problem and Crofton's Formula</a></cite></li>
+<li><cite>(Calka, Stochastic Geometry 2019) <a href="https://hal.archives-ouvertes.fr/hal-02377523/file/ContribCalka_V3.pdf" target="_blank">Some Classical Problems in Random Geometry</a></cite></li>
+<li><a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a></li>
+<li><a href="https://math.stackexchange.com/q/1243160" target="_blank">Expected area of triangle formed by three random points inside unit circle: Math StackExchange</a></li>
+</ul>
+</div>
+      </div>
+      <div id="content-time">Exported: 2021-11-25T05:51:50.848764</div>
+    </div>
+  </div>
+</body>
+
+</html>

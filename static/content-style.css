@@ -88,12 +88,13 @@
   display: none;
   border: 1px dashed #AAB;
 }
-#content-frame.editor-preview #content div.spoiler {
-  display: block;
-}
 #content div.spoiler-button-wrapper {
   text-align: center;
   margin: 1em;
+}
+#content div.spoiler div.spoiler {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 /*================================================================
