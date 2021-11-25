@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Melancholia Ep. 1: The 1995 Sungkyunkwan University Entrance Exam Incident</title>
+  <link rel="shortcut icon" href="/a9online/static/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Melancholia Ep. 1: The 1995 Sungkyunkwan University Entrance Exam Incident</div>
+      <div id="content">
+<h1 id="problem-statement">Problem Statement</h1>
+<p><strong><em>Origin</em></strong> <em>Korean drama <a href="https://en.wikipedia.org/wiki/Melancholia_%28TV_series%29" target="_blank">Melancholia</a>, Episode 1. Mild spoilers ahead.</em></p>
+<p><img src="/a9online/math-problems/melancholia/poster.jpg" alt="Promotional poster (from Wikimedia)" title="Promotional poster (from Wikimedia)"></p>
+<p>Melancholia is set in Asung High School, a seemingly prestigious school that is actually full of corruptions. Ji Yoon-soo (right), who is super passionate about math, is hired to teach competition-level math to raise the school's prestige. There she meets Baek Seung-yoo (left), a student who performs poorly in math classes and likes taking photographs. In reality, Seung-yoo is a math prodigy who went to MIT (under his dad's pressure) but came back to Korea as a "failed genius". Yoon-soo notices Seung-yoo's interest in math from his photographs, and after interacting with him, starts to open up his heart as well as his dark past. But their close relationship also leads to scandals, and drama ensues.</p>
+<p>In Episode 1, Yoon-soo gives the students the following question as a placement test for her math club:</p>
+<p><img src="/a9online/math-problems/melancholia/e1.jpg" alt="The placement test" title="The placement test"></p>
+<blockquote>
+<p>Three non-zero vectors $\vec{a}, \vec{b}, \vec{c}$ in the 3-dimensional (Euclidean) space satisfy</p>
+$$|x\vec{a} + y\vec{b} + z\vec{c}| \geq |x\vec{a}| + |y\vec{b}|$$<p>for all real numbers $x, y, z$. Prove that $\vec{a}\perp\vec{b}$, $\vec{b}\perp\vec{c}$, and $\vec{c}\perp\vec{a}$.</p>
+</blockquote>
+<div class="spoiler" markdown="1">
+
+<h1 id="solution">Solution</h1>
+<p>In the show, an anonymous student (who is unsurprisingly revealed as Seung-yoo) correctly points out that the premise is false: <strong>there are no non-zero vectors $\vec{a}, \vec{b}, \vec{c}$ satifying the given condition</strong>, and as such the statement is always true ($P \to Q$ is true when $P$ is false).</p>
+<p>To see why, substitute $z = 0$ and square both sides. For all real numbers $x$ and $y$, we must have</p>
+$$\begin{aligned}
+|x\vec{a} + y\vec{b}|^2 &amp;\geq (|x\vec{a}| + |y\vec{b}|)^2 \\
+x^2|\vec{a}|^2 + y^2|\vec{b}|^2 + 2xy\vec{a}\T\vec{b} &amp;\geq x^2|\vec{a}|^2 + y^2|\vec{b}|^2 + 2|xy||\vec{a}||\vec{b}| \\
+xy|\vec{a}||\vec{b}|\cos \theta &amp;\geq |xy||\vec{a}||\vec{b}|
+\end{aligned}$$<p>where $\theta$ is the angle between $\vec{a}$ and $\vec{b}$. Since the vectors are non-zero, we get $xy\cos\theta \geq |xy|$, which is false for at least one of $(x, y) = (2, 2)$ and $(x, y) = (2, -2)$ depending on the sign of $\cos\theta$.</p>
+<h1 id="the-story-behind-the-problem">The Story Behind the Problem</h1>
+<h2 id="kim-myung-hos-misery">Kim Myung-ho's Misery</h2>
+<p><img src="/a9online/math-problems/melancholia/science.jpg" alt="Science article" title="Science article"></p>
+<p>I applaud the showrunners for choosing this problem for the corruption-themed show, as there was actually a huge drama behind this problem. The problem appeared as Problem 7 (15/100 points) of Math II in the 1995 entrance exam for Sungkyunkwan University. <strong><a href="https://www.genealogy.math.ndsu.nodak.edu/id.php?id=7126" target="_blank">Kim Myung-ho</a></strong>, who earned a PhD from UMich and was a fresh assistant professor at that university at the time, participated in the exam grading session and recognized the issue with this problem. While the problem's statement is technically true, it would be hard to come up with a consistent grading rubric, and Kim recommended that no weight should be given for the problem. He promptly reported the issue to the president of the university.</p>
+<p>Alas, this pissed off other people in the department, who subsequently threatened Kim with disciplinary actions such as giving him a stern warning, suspending him from teaching for 3 months (without salary of course), and denying his tenure. The last effectively terminated Kim's position at the university.</p>
+<p>In 1996, Kim went to court. The Korea Institute for Advanced Study and the Korean Mathematical Society were asked whether the problem has an issue or not, but both of them refused to answer, possibly due to their ties with Sungkyunkwan University. (Note that the Korean Mathematical Society also shows up in Melancholia, so let's see if they will play a villian role.) The district court dismissed the case and Kim appealed to the high court. At this point the story spread abroad, and many prominent mathematicians such as <a href="https://en.wikipedia.org/wiki/Serge_Lang" target="_blank">Serge Lang</a> and <a href="https://en.wikipedia.org/wiki/Michael_Atiyah" target="_blank">Michael Atiyah</a> expressed support for Kim. The high court eventually dismissed the case as well.</p>
+<h2 id="kim-myung-hos-revenge">Kim Myung-ho's Revenge</h2>
+<p>The story did not end there. In 2003, the laws regarding wrongful refusal of re-appointment were amended (to no longer give the schools free rein to dismiss people), and wrongfully terminated professors were allowed to file lawsuits. Kim did so in 2005 for a few times but got dismissed, with the court citing that Kim did not have the qualifications to be an educator.</p>
+<p>Kim became super angry at the court the their posse. He staged protests outside the courthouse and submitted complaint letters to the court. Finally in 2007, he carried a <strong>freaking cross-bow</strong> to the apartment of judge Park Hong-woo. A fight occurred and an arrow was fired. Kim said that the arrow did not hit anyone, but the judge claimed he was shot. This "cross-bow case" was brought to the Supreme Court. The presented pieces of evidence were questionable (the blood marks were not near the hole in the shirt; the arrows were not broken or blunt; DNA tests were denied by the court; no picture of the wound; etc.). Despite this, Kim was eventually sentenced to 4 years in prison. The public had mixed feeling about this case.</p>
+<p><img src="/a9online/math-problems/melancholia/unbowed.jpg" alt="Promotional poster (from Amazon)" title="Promotional poster (from Amazon)"></p>
+<p>Kim was released in 2011, after which he continued to be an activist fighting against the Korean judiciary system. That year, the movie <a href="https://en.wikipedia.org/wiki/Unbowed" target="_blank">Unbowed</a> inspired by the whole incident came out. It brought the case back to the public eye, who now began to sympathize with Kim, and the movie became a box office success.</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="https://ko.wikipedia.org/wiki/1995%EB%85%84_%EC%84%B1%EA%B7%A0%EA%B4%80%EB%8C%80%ED%95%99%EA%B5%90_%EC%9E%85%ED%95%99%EC%8B%9C%ED%97%98_%EC%98%A4%EB%A5%98_%EC%82%AC%EA%B1%B4" target="_blank">Wikipedia article on the incident (Korean)</a></li>
+<li><a href="https://ko.m.wikipedia.org/wiki/%EA%B9%80%EB%AA%85%ED%98%B8_%281957%EB%85%84%29" target="_blank">Wikipedia article on Kim Myung-ho (Korean)</a></li>
+<li><a href="https://blog.daum.net/keiti/8558155" target="_blank">This blog post</a> which contains the content from:<ul>
+<li><a href="https://link.springer.com/article/10.1007/BF03025342" target="_blank">Letter to the Editor</a>, Mathematical Intelligencer, Volume 19, Number 3, 1997</li>
+<li><a href="https://www.science.org/doi/10.1126/science.277.5331.1441d" target="_blank">Random Samples</a>, Science, Volume 277, Number 5331, 5 September 1997</li>
+</ul>
+</li>
+<li><a href="https://blog.naver.com/birth1104/222566487165" target="_blank">Blog post by birth1104</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Unbowed" target="_blank">Wikipedia article on the movie Unbowed</a></li>
+<li><a href="http://www.kyosu.net/news/articleView.html?idxno=22703" target="_blank">Interview of Kim Myung-ho after he was released from prison</a></li>
+<li><a href="https://www.nytimes.com/2012/03/13/world/asia/south-korean-judges-losing-in-court-of-public-opinion.html" target="_blank">(The New York Times) Out of Jail, Ex-Professor and His Crossbow Fight South Korea’s Judiciary</a></li>
+<li><a href="https://www.latimes.com/world/la-xpm-2012-mar-08-la-fg-south-korea-crossbow-20120309-story.html" target="_blank">(LA Times)  The Crossbow Incident: A South Korean’s breaking point</a></li>
+<li><a href="https://www.seokgung.org" target="_blank">This conspiracy theory website</a> fervidly covers the case but also claims COVID is a hoax so 🤔.</li>
+</ul>
+</div>
+      </div>
+      <div id="content-time">Exported: 2021-11-25T03:57:55.698872</div>
+    </div>
+  </div>
+</body>
+
+</html>
