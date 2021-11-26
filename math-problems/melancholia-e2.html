@@ -23,29 +23,131 @@
       <div id="content">
 <h1 id="problem-statement">Problem Statement</h1>
 <p><strong><em>Origin</em></strong> <em>Korean drama <a href="https://en.wikipedia.org/wiki/Melancholia_%28TV_series%29" target="_blank">Melancholia</a>, Episode 2. Refer to <a href="/a9online/math-problems/melancholia-e1.html">the previous episode</a> for the plot. Depending on your region, you might be able to watch the episode for free on <a href="https://www.viki.com/tv/38037c-melancholia" target="_blank">Rakuten Viki</a>. <strong>Spoilers ahead.</strong></em></p>
-<p>Ji Yoon-soo confronts Baek Seung-yoo about the placement test, but Seung-yoo continues to deny his interest in math. Yoon-soo <a href="https://en.wikipedia.org/wiki/Cheese" target="_blank">tells</a> him that he is special not because of his talent, but because of the way he views the world through mathematical lens. Before she leaves, she gives him the following problem:</p>
-<p><img src="/a9online/math-problems/melancholia/e2.jpg" alt="The not-so-easy problem" title="The not-so-easy problem"></p>
+<p>After the event in <a href="/a9online/math-problems/melancholia-e1.html">Episode 1</a>, Ji Yoon-soo confronts Baek Seung-yoo about the placement test, but Seung-yoo continues to deny his interest in math. In an attempt to respark Seung-yoo's passion, Yoon-soo gives him the following problem:</p>
+<p><img src="/a9online/math-problems/melancholia/e2.jpg" alt="The problem" title="The problem"></p>
 <blockquote>
-<p>When randomly taking $n$ points (i.i.d. uniform) inside a circle (i.e., on a <a href="https://en.wikipedia.org/wiki/Disk_%28mathematics%29" target="_blank">disk</a>),
+<p>When $n$ points are randomly chosen in the interior of a circle,
 find the probability that these points are the vertices of a convex $n$-gon (where $n \geq 4$).</p>
 </blockquote>
-<p>The problem is tricky enough to become a plot point for many subsequent episode.
+<p>(The points are independently and uniformly random in the Cartesian coordinates.)
+The problem is tricky enough to become a plot point for many subsequent episodes.
 As a starter, try solving the $n = 4$ case first.</p>
 <div class="spoiler" markdown="1">
 
-<h1 id="solution">Solution</h1>
-<h2 id="the-4-point-version">The 4-point version</h2>
-<p>As stated in the title, the problem is a generalization of the classical <a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem</a> from 1865: compute the probability that 4 points randomly chosen in the given region form a convex quadrilateral. This 4-point version was also featured in <a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a> as problem A6 (aka the hardest problem of day 1).</p>
-<h3 id="solution-1">Solution 1</h3>
-<p>(TODO)</p>
-<h3 id="solution-2">Solution 2</h3>
-<p>(TODO)</p>
-<h3 id="solution-3">Solution 3</h3>
-<p>(TODO)</p>
-<p>Before we proceed, here's what happens in Melancholia (Spoilers!):</p>
+<p>$\gdef\ex#1{\operatorname{\mathbb{E}}\left( #1 \right)}$
+$\gdef\exr#1{\operatorname{\mathbb{E}'}\left( #1 \right)}$</p>
+<h1 id="solutions-when-๜n--4๞">Solutions when $n = 4$</h1>
+<p>As stated in the title, the problem is a generalization of the classical <a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem</a> from 1865: compute the probability that 4 points randomly chosen in the given region form a convex quadrilateral. Our region of interest is a disk (i.e., interior of a circle). This 4-points-in-a-disk version was also featured in <a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a> as problem A6 (aka the hardest problem of day 1).</p>
+<p><img src="/a9online/math-problems/melancholia/s1.png" alt="Possible cases" title="Possible cases"></p>
+<p>Let our region be a disk of radius 1 centered at the origin $O$, and let the points be $A, B, C, D$.
+<a href="https://en.wikipedia.org/wiki/Almost_surely" target="_blank">Almost surely</a>, either the points form a convex quadrilateral, or one of the points is inside the triangle formed by the others. So the probability we want is</p>
+$$\begin{aligned}
+\text{answer} &amp;= 1 - \prob{A \in \triangle BCD} - \prob{B \in \triangle ACD} - \prob{C \in \triangle ABD} - \prob{D \in \triangle ABC} \\
+&amp;= 1 - 4\prob{D\in \triangle ABC}  \qquad \text{(due to symmetry)} \\
+&amp;= 1 - 4\frac{\ex{\crab{\triangle ABC}}}{\pi \times 1^2}
+\end{aligned}$$<p>where $\crab{\dots}$ denotes the area, and the expectation is taken over $A,B,C$ uniformly distributed in the disk. The problem thus reduces to <strong><a href="https://mathworld.wolfram.com/DiskTrianglePicking.html" target="_blank">finding the average area of random triangles inside a unit disk</a></strong>.</p>
+<p>There are multiple ways to compute this average.
+But before we proceed, here's a caution regarding the probability density.
+Let our points in the Cartesian coordinates be $(X, Y)$ where $X$ and $Y$ are random variables.
+If we switch to polar coordinates $(R, \Theta)$ where $(X, Y) =  (R\cos\Theta, R\sin\Theta)$, the distribution of $R$ is <strong>not uniform</strong>: there are more points with large $R = r$ than points with small $R = r$.</p>
+<p><img src="/a9online/math-problems/melancholia/s2.png" alt="Nightmare from Calculus II" title="Nightmare from Calculus II"></p>
+<p>Note that $R$ and $\Theta$ are independent and $\Theta$ is uniform ($f(\theta) = 1/2\pi$).
+The probability that $R \in [r, r + dr]$ (as colored above) is $\frac{2\pi r\,dr}{\pi\times 1^2} = 2r\,dr$, meaning the probability density function of $R$ is $f(r) = 2r$ for $r \in [0, 1]$. One could also take the derivative of the cumulative density $F(r) = \prob{R &lt; r} = \frac{\pi r^2}{\pi\times 1^2} = r^2$ to get $f(r) = 2r$.</p>
+<p>A more general method for computing the <a href="https://en.wikipedia.org/wiki/Probability_density_function#Function_of_random_variables_and_change_of_variables_in_the_probability_density_function" target="_blank">change in the density function</a> is to write the Jacobian:</p>
+$$\begin{aligned}
+f(r,\theta) &amp;= f(x,y)\begin{vmatrix}
+\fracp{x}{r} &amp; \fracp{x}{\theta} \\
+\fracp{y}{r} &amp; \fracp{y}{\theta}
+\end{vmatrix} \\
+&amp;= f(x,y)\begin{vmatrix}
+\cos\theta &amp; -r \sin\theta \\
+\sin\theta &amp; r \cos\theta
+\end{vmatrix} \\
+&amp;= f(x,y)\,r
+\end{aligned}$$<h1 id="solution-1-look-at-๜crabtriangle-oab๞-๜crabtriangle-obc๞-๜crabtriangle-oca๞">Solution 1: Look at $\crab{\triangle OAB}$, $\crab{\triangle OBC}$, $\crab{\triangle OCA}$</h1>
+<p>This solution is by <a href="https://cseweb.ucsd.edu/~dakane/" target="_blank">Daniel Kane</a> (<a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>).</p>
+<p><img src="/a9online/math-problems/melancholia/t1a.png" alt="Decomposition of the triangle: case 1" title="Decomposition of the triangle: case 1">
+<img src="/a9online/math-problems/melancholia/t1b.png" alt="Decomposition of the triangle: cases 2 and 3" title="Decomposition of the triangle: cases 2 and 3"></p>
+<p>Draw $OA$, $OB$, and $OC$. We have 3 cases as pictured above. Cases 2 and 3 happen when $A,B,C$ lie on the same semicircle, and WLOG we let $B$ lie in the middle. We have</p>
+$$\crab{\triangle ABC} = \cases{
++\crab{\triangle OAB} + \crab{\triangle OBC} + \crab{\triangle OCA} &amp; \text{for case 1} \\
++\crab{\triangle OAB} + \crab{\triangle OBC} - \crab{\triangle OCA} &amp; \text{for case 2} \\
+-\crab{\triangle OAB} - \crab{\triangle OBC} + \crab{\triangle OCA} &amp; \text{for case 3} \\
+}$$<p>Our plan is to first compute the <strong>main term</strong> $\ex{+\crab{\triangle OAB} + \crab{\triangle OBC} + \crab{\triangle OCA}}$ while ignoring of the cases, and then subtract <strong>correction terms</strong> for cases 2 and 3.</p>
+<h2 id="the-main-term">The main term</h2>
+<p>Let's compute $\ex{+\crab{\triangle OAB} + \crab{\triangle OBC} + \crab{\triangle OCA}}$.
+Due to symmetry, we can just find $\ex{\crab{\triangle OAB}}$ then multiply by 3.
+We demonstrate two ways to compute $\ex{\crab{\triangle OAB}}$.</p>
+<p><strong><em>Method 1</em></strong> Let $r_1 = OA$, $r_2 = OB$, and $\theta = \angle AOB$. Due to symmetry, we can limit $\theta \in [0, \pi]$. The corresponding random variables $R_1$, $R_2$ and $\Theta$ are independent, and their probability density functions are $2r_1$, $2r_2$, and $1/\pi$. So</p>
+$$\begin{aligned}
+\ex{\crab{\triangle OAB}}
+&amp;= \int_0^{\pi} \int_0^1 \int_0^1 \nail{\frac{1}{2}r_1 r_2 \sin\theta}\,\frac{2r_1 2r_2}{\pi}\,dr_1\,dr_2\,d\theta \\
+&amp;= \frac{2}{\pi}\nail{\int_0^{\pi}\sin\theta\,d\theta}\nail{\int_0^1 r_1^2\,dr_1}\nail{\int_0^1 r_2^2\,dr_2} \\
+&amp;= \frac{2}{\pi}\nail{2}\nail{\frac{1}{3}}\nail{\frac{1}{3}} = \frac{4}{9\pi}
+\end{aligned}$$<p>This means $\ex{+\crab{\triangle OAB} + \crab{\triangle OBC} + \crab{\triangle OCA}} = \frac{4}{3\pi}$.</p>
+<p><strong><em>Method 2</em></strong> If we don't want to reason with independence and probability distributions and whatnot, we can apply the Jacobian and do the full integral. Let $A = (r_1, \theta_1)$ and $B = (r_2, \theta_2)$. Then</p>
+$$\begin{aligned}
+\ex{\crab{\triangle OAB}}
+&amp;= \frac{\int_0^{2\pi} \int_0^{2\pi} \int_0^1 \int_0^1 \nail{\frac{1}{2}r_1 r_2 \sin\abs{\theta_1-\theta_2}}\,r_1r_2\,dr_1\,dr_2\,d\theta_1\,d\theta_2}
+{\int_0^{2\pi}\int_0^{2\pi} \int_0^1 \int_0^1 \nail{1}\,r_1r_2\,dr_1\,dr_2\,d\theta_1\,d\theta_2} \\
+&amp;= \frac{\frac{1}{2}\nail{\int_0^{2\pi}\int_0^{2\pi} \sin\abs{\theta_1 - \theta_2}\,d\theta_1\,d\theta_2}\nail{\int_0^1 r_1^2\,dr_1}\nail{\int_0^1 r_2^2\,dr_2}}
+{\nail{\int_0^{2\pi} d\theta_1}\nail{\int_0^{2\pi} d\theta_2}\nail{\int_0^1 r_1\,dr_1}\nail{\int_0^1 r_2\,dr_2}} \\
+&amp;= \frac{\frac{1}{2}\nail{2\pi\times 4}\nail{\frac{1}{3}}\nail{\frac{1}{3}}}
+{\nail{2\pi}\nail{2\pi}\nail{\frac{1}{2}}\nail{\frac{1}{2}}} 
+= \frac{4}{9\pi}
+\end{aligned}$$<p>which gives the same final answer $\frac{4}{3\pi}$. The expectation is conditioning on the points being in the disk, hence the denominator. The term $2\pi \times 4$ comes from the fact that for any $\theta_2 \in [0, 2\pi]$, the graph $\sin\abs{\theta_1 - \theta_2}$ where $\theta_1 \in [0, 2\pi]$ will amount to 2 peaks of the sine wave, which have the area under curve of 4.</p>
+<h2 id="the-correction-terms">The correction terms</h2>
+<p>The main term over-counts some sub-triangles when case 2 or 3 occurs.
+The correction terms we need are</p>
+$$\begin{aligned}
+&amp;-2\times \prob{\text{case 2}}\ex{\crab{\triangle OCA} \mid \text{case 2}} \\
+&amp;-2\times \prob{\text{case 3}}\ex{\crab{\triangle OAB} + \crab{\triangle OBC} \mid \text{case 3}}
+\end{aligned}$$<p>To make things simpler, let's merge cases 2 and 3 by introducing an indicator $\chi = \II[B \in \triangle OAC]$. Also note that $\ex{\crab{\triangle OAB}\mid \dots} = \ex{\crab{\triangle OBC}\mid\dots}$ due to symmetry. The correction terms become</p>
+$$
+-2\times \prob{\text{case 2 or 3}}\ex{(1-\chi)\crab{\triangle OCA} + 2\chi\crab{\triangle OAB} \mid \text{case 2 or 3}}
+$$<p>Write $\exr{\ldots} = \ex{\ldots \mid \text{case 2 or 3}}$. Let's deal with each of these terms.</p>
+<p><strong><em>The probability $\prob{\text{case 2 or 3}}$</em></strong>
+What's the probability that case 2 or 3 (i.e., $O \not\in \triangle ABC$) occurs? This is yet another classic problem. As explained in <a href="https://youtu.be/OkmNXy7er84" target="_blank">this 3Blue1Brown video</a>, we can reorder the point sampling process as:</p>
+<ol>
+<li>Sample $A$ in the disk.</li>
+<li>Sample two diameters $d_B$ and $d_C$.</li>
+<li>Sample $B \in d_B$ and $C \in d_C$.</li>
+</ol>
+<p><img src="/a9online/math-problems/melancholia/t1c.png" alt="Putnam inside another Putnam" title="Putnam inside another Putnam"></p>
+<p>One needs to pick the right sides of both diameters to get $O \in \triangle ABC$, so the chance of $O \not\in\triangle ABC$ is $3/4$.</p>
+<p><strong><em>The expectation $\exr{(1 - \chi)\crab{\triangle OCA}}$</em></strong>
+We compute $\exr{\crab{\triangle OCA}}$ and $\exr{\chi\crab{\triangle OCA}}$ separately. Let's bring back the figures.</p>
+<p><img src="/a9online/math-problems/melancholia/t1b.png" alt="Decomposition of the triangle: cases 2 and 3" title="Decomposition of the triangle: cases 2 and 3"></p>
+<p>The radii for $A$ and $C$ still have distributions $2r$. The angle $\theta := \angle AOC$ has distribution $2\theta/\pi^2$ when $\theta \in [0,\pi]$. (Handwavy argument: the density of $\theta$ is proportional to the amount of possible choices for $B$, which is then proportional to the area of the disk sector under angle $\theta$. This area grows linearly with $\theta$, thus the density function is $\theta$ times some constant that would make the total distribution equal 1. That constant is $1/\int_0^\pi \theta\,d\theta = 2/\pi^2$.) So we get</p>
+$$\begin{aligned}
+\exr{\crab{\triangle OCA}}
+&amp;= \int_0^{\pi} \int_0^1 \int_0^1 \nail{\frac{1}{2}r_1 r_2 \sin\theta}\,2r_1 2r_2\frac{2\theta}{\pi^2}\,dr_1\,dr_2\,d\theta \\
+&amp;= \frac{4}{\pi^2}\nail{\int_0^{\pi}\theta\sin\theta\,d\theta}\nail{\int_0^1 r_1^2\,dr_1}\nail{\int_0^1 r_2^2\,dr_2} \\
+&amp;= \frac{4}{\pi^2}\nail{\pi}\nail{\frac{1}{3}}\nail{\frac{1}{3}} = \frac{4}{9\pi}
+\end{aligned}$$<p>Now comes the neat part: for a given $\triangle OCA$, the probability that $\chi = 1$ (i.e., $B\in\triangle OCA$) is the ratio of $\crab{\triangle OCA}$ to the disk sector under the angle $\theta$.</p>
+<p><img src="/a9online/math-problems/melancholia/t1d.png" alt="What a neat trick indeed" title="What a neat trick indeed"></p>
+<p>So we get</p>
+$$\begin{aligned}
+\exr{\chi\crab{\triangle OCA}}
+&amp;= \exr{\frac{\crab{\triangle OCA}}{\frac{\theta}{2\pi}\times\pi\times 1^2}\crab{\triangle OCA}} \\
+&amp;= \int_0^{\pi} \int_0^1 \int_0^1 \frac{2}{\theta}\nail{\frac{1}{2}r_1 r_2 \sin\theta}^2\,2r_1 2r_2\frac{2\theta}{\pi^2}\,dr_1\,dr_2\,d\theta \\
+&amp;= \frac{4}{\pi^2}\nail{\int_0^{\pi}\sin^2\theta\,d\theta}\nail{\int_0^1 r_1^3\,dr_1}\nail{\int_0^1 r_2^3\,dr_2} \\
+&amp;= \frac{4}{\pi^2}\nail{\frac{\pi}{2}}\nail{\frac{1}{4}}\nail{\frac{1}{4}} = \frac{1}{8\pi}
+\end{aligned}$$<p><strong><em>The expectation $\exr{\chi\crab{\triangle OAB}}$</em></strong> Let's first answer the following question: for a given $\triangle OCA$, when $B$ is randomly chosen inside $\triangle OCA$, what's the expected area of $\triangle OAB$?</p>
+<p><img src="/a9online/math-problems/melancholia/t1e.png" alt="Triangle" title="Triangle"></p>
+<p>The answer is $\frac{1}{3}\crab{\triangle OCA}$. The papers make it look like a trivial fact but I couldn't find it anywhere. One way to quickly visualize the answer is to put the triangle in the x-y plane and plot $z = \crab{\triangle OAB} = \frac{1}{2}by$. You would get a pyramid with base $\triangle OCA$ and height $\frac{1}{2}bh = \crab{\triangle OCA}$. So the volume is $\frac{1}{3}\crab{\triangle OCA}^2$, and the average of $z$ we wanted is the volume divided by the base area, which is $\frac{1}{3}\crab{\triangle OCA}$.</p>
+<p>With this, we get $\exr{\chi\crab{\triangle OAB}} = \frac{1}{3}\exr{\chi\crab{\triangle OCA}} = \frac{1}{24\pi}$.</p>
+<h2 id="combine-everything">Combine everything</h2>
+<p>The correction terms become</p>
+$$\begin{aligned}
+&amp; -2\times \prob{\text{case 2 or 3}}\ex{(1-\chi)\crab{\triangle OCA} + 2\chi\crab{\triangle OAB} \mid \text{case 2 or 3}} \\
+&amp;= -2\times\frac{3}{4}\nail{\frac{4}{9\pi} - \frac{1}{8\pi} + 2\times \frac{1}{24\pi}} = -\frac{29}{48\pi}
+\end{aligned}$$<p>Combining this with the main term gives</p>
+$$\ex{\crab{\triangle ABC}} = \frac{4}{3\pi} - \frac{29}{48\pi} = \frac{35}{48\pi}$$<p>And thus the probability that 4 random points in a disk form a convex quadrilateral is</p>
+$$1 - 4\times\frac{35/48\pi}{\pi} = 1 - \frac{35}{12\pi^2}$$<p>Before we proceed, here's what happens in Melancholia (<strong>Spoilers!</strong>):</p>
 <div class="spoiler" markdown="1">
 
-<p>Seung-yoo keeps thinking about the problem. That night, he sneaks into the classroom and begins working on the problem. Yoon-soo sees him and joins in the fun.</p>
+<p>Seung-yoo keeps thinking about the problem. That night, he sneaks into the classroom and begins working on the problem. Yoon-soo notices him and joins in the fun.</p>
 <p>The scene is astonishingly realistic. The actors ooze thrill and excitement while solving the problem, the music is vivifying, and what they write on the board actually traces Solution 1. I'm pretty impressed.</p>
 <p><img src="/a9online/math-problems/melancholia/e2a.jpg" alt="Oh look it's a Jacobian." title="Oh look it's a Jacobian."></p>
 <p><img src="/a9online/math-problems/melancholia/e2b.jpg" alt="Yoon-soo joins in." title="Yoon-soo joins in."></p>
@@ -54,7 +156,14 @@ As a starter, try solving the $n = 4$ case first.</p>
 <p><img src="/a9online/math-problems/melancholia/e2e.jpg" alt="They got the expected area!" title="They got the expected area!"></p>
 </div>
 
-<h2 id="generalization-to-๜n-geq-4๞">Generalization to $n \geq 4$</h2>
+
+<h1 id="solution-2">Solution 2</h1>
+<p>(TODO)</p>
+<h1 id="solution-3">Solution 3</h1>
+<p>(TODO)</p>
+<h1 id="solution-4">Solution 4</h1>
+<p>(TODO)</p>
+<h1 id="generalization-to-๜n-geq-4๞">Generalization to $n \geq 4$</h1>
 <p>There are a few ways to generalize Sylvester's problem, such as changing the region, adding more dimensions, and adding more points. For example, <cite>(Buchta, 2009) <a href="https://www.semanticscholar.org/paper/On-the-Number-of-Vertices-of-the-Convex-Hull-of-in-Buchta/d2ba03a430e55cb89cd25789738f773551e75093" target="_blank">On the Number of Vertices of the Convex Hull of Random Points in a Square and a Triangle</a></cite> considers $n \geq 4$ points in a triangle or a square.</p>
 <p>Our main question for $n \geq 4$ points on a disk is answered by <cite>(Marckert, 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite>.</p>
 <p>(TODO)</p>
@@ -70,7 +179,7 @@ As a starter, try solving the $n = 4$ case first.</p>
 </ul>
 </div>
       </div>
-      <div id="content-time">Exported: 2021-11-25T05:52:57.944060</div>
+      <div id="content-time">Exported: 2021-11-26T01:32:05.343739</div>
     </div>
   </div>
 </body>
