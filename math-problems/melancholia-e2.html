@@ -37,7 +37,7 @@ As a starter, try solving the $n = 4$ case first.</p>
 <p>$\gdef\ex#1{\operatorname{\mathbb{E}}\left( #1 \right)}$
 $\gdef\exr#1{\operatorname{\mathbb{E}'}\left( #1 \right)}$</p>
 <h1 id="solutions-when-๜n--4๞">Solutions when $n = 4$</h1>
-<p>As stated in the title, the problem is a generalization of the classical <a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem</a> from 1865: compute the probability that 4 points randomly chosen in the given region form a convex quadrilateral. Our region of interest is a disk (i.e., interior of a circle). This 4-points-in-a-disk version was also featured in <a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a> as problem A6 (aka the hardest problem of day 1).</p>
+<p>As stated in the title, the problem is a generalization of the classical <a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem</a> from 1865: compute the probability that 4 points randomly chosen in the given region form a convex quadrilateral. Our region of interest is a disk (i.e., interior of a circle). This 4-points-in-a-disk version was also featured in <a href="https://www.kskedlaya.org/putnam-archive/2006.pdf" target="_blank">Putnam 2006</a> as problem A6 (aka the hardest problem of day 1).</p>
 <p><img src="/a9online/math-problems/melancholia/s1.png" alt="Possible cases" title="Possible cases"></p>
 <p>Let our region be a disk of radius 1 centered at the origin $O$, and let the points be $A, B, C, D$.
 <a href="https://en.wikipedia.org/wiki/Almost_surely" target="_blank">Almost surely</a>, either the points form a convex quadrilateral, or one of the points is inside the triangle formed by the others. So the probability we want is</p>
@@ -49,10 +49,10 @@ $$\begin{aligned}
 <p>There are multiple ways to compute this average.
 But before we proceed, here's a caution regarding the probability density.
 Let our points in the Cartesian coordinates be $(X, Y)$ where $X$ and $Y$ are random variables.
-If we switch to polar coordinates $(R, \Theta)$ where $(X, Y) =  (R\cos\Theta, R\sin\Theta)$, the distribution of $R$ is <strong>not uniform</strong>: there are more points with large $R = r$ than points with small $R = r$.</p>
+If we switch to polar coordinates $(R, \Theta)$ where $(X, Y) = (R\cos\Theta, R\sin\Theta)$, the distribution of $R$ is <strong>not uniform</strong>: there are more points with large $R = r$ than points with small $R = r$.</p>
 <p><img src="/a9online/math-problems/melancholia/s2.png" alt="Nightmare from Calculus II" title="Nightmare from Calculus II"></p>
 <p>Note that $R$ and $\Theta$ are independent and $\Theta$ is uniform ($f(\theta) = 1/2\pi$).
-The probability that $R \in [r, r + dr]$ (as colored above) is $\frac{2\pi r\,dr}{\pi\times 1^2} = 2r\,dr$, meaning the probability density function of $R$ is $f(r) = 2r$ for $r \in [0, 1]$. One could also take the derivative of the cumulative density $F(r) = \prob{R &lt; r} = \frac{\pi r^2}{\pi\times 1^2} = r^2$ to get $f(r) = 2r$.</p>
+The probability that $R$ falls inside the range $[r, r + dr]$ (as colored above) is $\frac{2\pi r\,dr}{\pi\times 1^2} = 2r\,dr$, meaning the probability density function of $R$ is $f(r) = 2r$ for $r \in [0, 1]$. One could also take the derivative of the cumulative density $F(r) = \prob{R &lt; r} = \frac{\pi r^2}{\pi\times 1^2} = r^2$ to get $f(r) = 2r$.</p>
 <p>A more general method for computing the <a href="https://en.wikipedia.org/wiki/Probability_density_function#Function_of_random_variables_and_change_of_variables_in_the_probability_density_function" target="_blank">change in the density function</a> is to write the Jacobian:</p>
 $$\begin{aligned}
 f(r,\theta) &amp;= f(x,y)\begin{vmatrix}
@@ -65,7 +65,7 @@ f(r,\theta) &amp;= f(x,y)\begin{vmatrix}
 \end{vmatrix} \\
 &amp;= f(x,y)\,r
 \end{aligned}$$<h1 id="solution-1-look-at-๜crabtriangle-oab๞-๜crabtriangle-obc๞-๜crabtriangle-oca๞">Solution 1: Look at $\crab{\triangle OAB}$, $\crab{\triangle OBC}$, $\crab{\triangle OCA}$</h1>
-<p>This solution is by <a href="https://cseweb.ucsd.edu/~dakane/" target="_blank">Daniel Kane</a> (<a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>).</p>
+<p><em>This solution is by <a href="https://en.wikipedia.org/wiki/Daniel_Kane_%28mathematician%29" target="_blank">Daniel Kane</a> (<a href="https://www.kskedlaya.org/putnam-archive/2006s.pdf" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>).</em></p>
 <p><img src="/a9online/math-problems/melancholia/t1a.png" alt="Decomposition of the triangle: case 1" title="Decomposition of the triangle: case 1">
 <img src="/a9online/math-problems/melancholia/t1b.png" alt="Decomposition of the triangle: cases 2 and 3" title="Decomposition of the triangle: cases 2 and 3"></p>
 <p>Draw $OA$, $OB$, and $OC$. We have 3 cases as pictured above. Cases 2 and 3 happen when $A,B,C$ lie on the same semicircle, and WLOG we let $B$ lie in the middle. We have</p>
@@ -102,7 +102,7 @@ The correction terms we need are</p>
 $$\begin{aligned}
 &amp;-2\times \prob{\text{case 2}}\ex{\crab{\triangle OCA} \mid \text{case 2}} \\
 &amp;-2\times \prob{\text{case 3}}\ex{\crab{\triangle OAB} + \crab{\triangle OBC} \mid \text{case 3}}
-\end{aligned}$$<p>To make things simpler, let's merge cases 2 and 3 by introducing an indicator $\chi = \II[B \in \triangle OAC]$. Also note that $\ex{\crab{\triangle OAB}\mid \dots} = \ex{\crab{\triangle OBC}\mid\dots}$ due to symmetry. The correction terms become</p>
+\end{aligned}$$<p>To make things simpler, let's merge cases 2 and 3 by introducing an indicator $\chi = \II[B \in \triangle OAC]$ (= 0 for case 2; = 1 for case 3). Also note that $\ex{\crab{\triangle OAB}\mid \dots} = \ex{\crab{\triangle OBC}\mid\dots}$ due to symmetry. The correction terms become</p>
 $$
 -2\times \prob{\text{case 2 or 3}}\ex{(1-\chi)\crab{\triangle OCA} + 2\chi\crab{\triangle OAB} \mid \text{case 2 or 3}}
 $$<p>Write $\exr{\ldots} = \ex{\ldots \mid \text{case 2 or 3}}$. Let's deal with each of these terms.</p>
@@ -114,7 +114,7 @@ What's the probability that case 2 or 3 (i.e., $O \not\in \triangle ABC$) occurs
 <li>Sample $B \in d_B$ and $C \in d_C$.</li>
 </ol>
 <p><img src="/a9online/math-problems/melancholia/t1c.png" alt="Putnam inside another Putnam" title="Putnam inside another Putnam"></p>
-<p>One needs to pick the right sides of both diameters to get $O \in \triangle ABC$, so the chance of $O \not\in\triangle ABC$ is $3/4$.</p>
+<p>One needs to pick the right half of both $d_B$ and $d_C$ to get $O \in \triangle ABC$, so the chance of $O \not\in\triangle ABC$ is $3/4$.</p>
 <p><strong><em>The expectation $\exr{(1 - \chi)\crab{\triangle OCA}}$</em></strong>
 We compute $\exr{\crab{\triangle OCA}}$ and $\exr{\chi\crab{\triangle OCA}}$ separately. Let's bring back the figures.</p>
 <p><img src="/a9online/math-problems/melancholia/t1b.png" alt="Decomposition of the triangle: cases 2 and 3" title="Decomposition of the triangle: cases 2 and 3"></p>
@@ -157,29 +157,135 @@ $$1 - 4\times\frac{35/48\pi}{\pi} = 1 - \frac{35}{12\pi^2}$$<p>Before we proceed
 </div>
 
 
-<h1 id="solution-2">Solution 2</h1>
-<p>(TODO)</p>
-<h1 id="solution-3">Solution 3</h1>
-<p>(TODO)</p>
-<h1 id="solution-4">Solution 4</h1>
-<p>(TODO)</p>
+<h1 id="solution-2-pin-one-point-on-the-disk-boundary">Solution 2: Pin one point on the disk boundary</h1>
+<p><em>This solution is likely the original solution by W.S.B. Woolhouse back in the 1860s. The Putnam solution is credited to <a href="https://en.wikipedia.org/wiki/Noam_Elkies" target="_blank">Noam Elkies</a> (<a href="https://www.kskedlaya.org/putnam-archive/2006s.pdf" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>, <a href="https://math.stackexchange.com/a/1247948" target="_blank">ref3</a>).</em></p>
+<h2 id="pin-point-a-on-the-boundary">Pin point A on the boundary</h2>
+<p>We first compute the average of $\crab{\triangle ABC}$ when one point (WLOG, $A$) is on the disk boundary. To do so, we temporarily move the disk so that $A$ is at $(0,0)$ and the center is at $(0, 1)$.</p>
+<p><img src="/a9online/math-problems/melancholia/t2a.png" alt="Move that disk" title="Move that disk"></p>
+<p>Points in the disk are given by polar coordinates $(r, \theta)$ where $\theta \in [0, \pi]$ and $r \in [0, 2\sin\theta]$. If $B = (r_1, \theta_1)$ and $C = (r_2, \theta_2)$, the value of $\ex{\crab{\triangle ABC}\mid A \in\text{boundary}}$ will be</p>
+$$
+\frac{\int_0^\pi \int_0^\pi \int_0^{2\sin\theta_1} \int_0^{2\sin\theta_2}
+\nail{\frac{1}{2}r_1r_2\sin\abs{\theta_1 - \theta_2}}\,
+r_1r_2\,dr_1\,dr_2\,d\theta_1\,d\theta_2}
+{\int_0^\pi \int_0^\pi \int_0^{2\sin\theta_1} \int_0^{2\sin\theta_2}
+\nail{1}\,
+r_1r_2\,dr_1\,dr_2\,d\theta_1\,d\theta_2}
+$$<p>The numerator is</p>
+$$\begin{aligned}
+&amp;= \int_0^\pi \int_0^\pi\crab{\frac{1}{2}\sin\abs{\theta_1 - \theta_2}\nail{\int_0^{2\sin\theta_1}r_1^2\,dr_1}\nail{\int_0^{2\sin\theta_2}r_2^2\,dr_2}}\,d\theta_1\,d\theta_2 \\
+&amp;= \frac{32}{9}\int_0^\pi \int_0^\pi\crab{\sin\abs{\theta_1 - \theta_2} \sin^3\theta_1 \sin^3\theta_2}\,d\theta_1\,d\theta_2 \\
+&amp;= \frac{64}{9}\int_0^\pi \int_0^{\theta_1}\crab{\sin(\theta_1 - \theta_2) \sin^3\theta_1 \sin^3\theta_2}\,d\theta_1\,d\theta_2 \qquad \text{(symmetry!)} \\
+&amp;= \text{\dots blood and gore (or Wolfram Alpha)\dots} \\
+&amp;= \frac{64}{9}\times \frac{35\pi}{256} = \frac{35\pi}{36}
+\end{aligned}$$<p>And the denominator is</p>
+$$\begin{aligned}
+&amp;= \nail{\int_0^\pi \int_0^{2\sin\theta_1} r_1\,dr_1\,d\theta_1}\nail{\int_0^\pi \int_0^{2\sin\theta_2} r_2\,dr_2\,d\theta_2} \\
+&amp;= \nail{\int_0^\pi 2\sin^2\theta_1\,d\theta_1}
+\nail{\int_0^\pi 2\sin^2\theta_2\,d\theta_2} \\
+&amp;= \nail{\pi}\nail{\pi} = \pi^2
+\end{aligned}$$<p>So $\ex{\crab{\triangle ABC}\mid A \in\text{boundary}} = \frac{35}{36\pi}$. And if the radius were $q$ instead of 1, we would have $\ex{\crab{\triangle ABC}\mid A \in\text{boundary}} = \frac{35q^2}{36\pi}$.</p>
+<h2 id="unpin-the-point">Unpin the point</h2>
+<p>There are a few ways to answer the original question based on what we just computed.</p>
+<p><strong><em>Method 1</em></strong> Define random variable $Q = \max\set{OA, OB, OC}$. The cumulative distribution of $Q$ is</p>
+$$F(q) = \prob{OA, OB, OC \leq q} = \nail{\frac{\pi q^2}{\pi\times 1^2}}^3 = q^6$$<p>So the density function is the derivative $f(q) = 6q^5$. We now have</p>
+$$\begin{aligned}
+\ex{\crab{\triangle ABC}}
+&amp;= \int_0^1 \ex{\crab{\triangle ABC}\mid Q = q} f(q) \,dq \\
+&amp;= \int_0^1 \frac{35q^2}{36\pi} 6q^5 \,dq \\
+&amp;= \frac{35}{48\pi}
+\end{aligned}$$<p>And the answer to the original question is $1 - \frac{4}{\pi}\times \frac{35}{48\pi} = 1 - \frac{35}{12\pi^2}$.</p>
+<p><strong><em>Method 2</em></strong> A more generic method that also works with other types of regions is to apply <strong><a href="https://mathworld.wolfram.com/CroftonsFormula.html" target="_blank">Crofton's theorem</a></strong>. There are a few theorems named after <a href="https://en.wikipedia.org/wiki/Morgan_Crofton" target="_blank">Crofton</a> (a prominent mathematician on geometric probability theory who has also worked with Sylvester), but the one we refer to is:</p>
+<blockquote>
+<p>Let $S$ be a region with measure (e.g., 2d area) $s$ and boundary $\partial S$. If $H$ is an event which depends on the positions of $n$ random points $p_1, \dots, p_n$ in $S$. Then</p>
+$$\partial\prob{H} = \frac{n\,\partial s}{s}\nail{\prob{H \mid p_1 \in \partial S} - \prob{H}}$$</blockquote>
+<p>This relates $\prob{H}$ (as a function of $s$) to the probability conditioning on one point being on the boundary. There's also a version for expected value as well as for multiple regions.</p>
+<p>Here's a quick proof from <cite>(Solomon, 1978) <a href="https://books.google.com/books?id=J1b4BV6K6D8C" target="_blank">Geometric Probability</a></cite>. Let $S'$ be a subregion of $S$ that is a teeny bit smaller than $S$; in fact, let the difference be so small that the probability of two $p_i$'s simultaneously falling in $\Delta S := S\setminus S'$ can be ignored. Let $s'$ and $\Delta s$ be the measures of $S'$ and $\Delta S$. Then</p>
+$$\begin{aligned}
+\prob{H} &amp;= \prob{H \mid \text{all points}\in S'}\prob{\text{all points}\in S'} \\
+&amp;\quad + \sum_{i=1}^n \prob{H \mid p_i \in \Delta S, \text{others}\in S'}\prob{p_i \in \Delta S, \text{others}\in S'} \\
+&amp;\quad + \text{\dots ignorable terms\dots} \\
+\prob{H} &amp;= \prob{H \mid \text{all points}\in S'}\nail{\frac{s'}{s}}^n \\
+&amp;\quad + n \prob{H \mid p_1 \in \Delta S, \text{others}\in S'}\nail{\frac{s'}{s}}^{n-1}\frac{\Delta s}{s} \\
+s^n \prob{H} &amp;= \prob{H \mid \text{all points}\in S'}s'^n \\
+&amp;\quad + n \prob{H \mid p_1 \in \Delta S, \text{others}\in S'}s'^{n-1}\Delta s \\
+\end{aligned}$$<p>Plugging $s^n = (s' + \Delta s)^n \approx s'^n + ns'^{n-1}\Delta s$, we can rearrange the equation into</p>
+$$s'^n\nail{\prob{H} - \prob{H \mid \text{all}\in S'}} = n s'^{n-1}\Delta s\nail{\prob{H\mid p_1\in\Delta S,\text{others}\in S'} - \prob{H}}$$<p>As $\Delta s$ become infinitesimal, $s' \to s$ and $\Delta S$ becomes the just boundary $\partial S$ of $S$. The theorem follows. □</p>
+<p><span id="move-point-a"></span></p>
+<p>Now for our 4-point problem. Let $H$ be the event that the 4 random points $A,B,C,D$ in a disk of area $s$ form a convex quadrilateral. Crofton's theorem gives</p>
+$$\partial\prob{H} = \frac{4\,\partial s}{s}\nail{\prob{H \mid A \in \partial S} - \prob{H}}$$<p>The size of the disk doesn't really affect $P(H)$, meaning $P(H)$ is a constant w.r.t. $s$ and thus $\partial \prob{H}/\partial s = 0$. So we get $\prob{H} = \prob{H \mid A \in \partial S}$, meaning <strong>pinning $A$ on the boundary does not change the answer</strong>. Our final answer is</p>
+$$\begin{aligned}
+\prob{H}
+&amp;= \prob{H \mid A \in \partial S} \\
+&amp;= 1 - \prob{B \in \triangle ACD\mid A \in \partial S} \\
+&amp;\qquad - \prob{C \in \triangle ABD\mid A \in \partial S} \\
+&amp;\qquad - \prob{D \in \triangle ABC\mid A \in \partial S} \\
+&amp;= 1 - 3\prob{D\in \triangle ABC\mid A \in \partial S}  \qquad \text{(symmetry)} \\
+&amp;= 1 - 3\frac{35/36\pi}{\pi \times 1^2} = 1 - \frac{35}{12\pi^2}
+\end{aligned}$$<h1 id="sketches-of-other-solutions">Sketches of Other Solutions</h1>
+<p>The other Putnam official solution by <a href="https://math.jhu.edu/~savitt/" target="_blank">David Savitt</a> (<a href="https://www.kskedlaya.org/putnam-archive/2006s.pdf" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>) starts by extending $AB, BC, CA$ to slice the disk into 7 pieces.</p>
+<p><img src="/a9online/math-problems/melancholia/t3a.png" alt="The seven regions" title="The seven regions"></p>
+<p>Let $\alpha, \beta, \gamma$ be the expectations of the pieces (due to symmetry some pieces have the same expectation). To solve for these 3 variables we need to write 3 equations.</p>
+<ul>
+<li>The total area is $\alpha + 3\beta + 3\gamma = \pi\times 1^2$.</li>
+<li>Recall from the intro that the probability of 4 points forming a convex quadrilateral is $1 - 4\alpha/\pi$. But we can also start by picking $A,B,C$ first, after which $D$ must be in the green area to make the 4 points form a convex quadrilateral. Thus $1 - 4\alpha/\pi = \beta/\pi$.</li>
+<li>Finally, we can compute $\beta + 2\gamma$, the area cut off by the chord $AB$ that does not contain $C$. After some intense calculus, we get $\beta + 2\gamma = \frac{35+24\pi^2}{72\pi}$. We can now solve for $\alpha$.</li>
+</ul>
+<p>Another solution due to Alikoski (1939) (<a href="https://www.worldcat.org/title/uber-das-sylvestersche-vierpunktproblem/oclc/608209196" target="_blank">ref1</a>, <a href="https://books.google.com/books?id=J1b4BV6K6D8C" target="_blank">ref2</a>) is to solve the problem when the region is a regular $n$-gon, the answer of which is</p>
+$$1 - \frac{9\cos^2\frac{2\pi}{n} +52\cos\frac{2\pi}{n} +44}{9n^2\sin^2\frac{2\pi}{n}}$$<p>Then take $n\to\infty$.</p>
+<p>Yet another solution (<a href="https://www.cambridge.org/core/journals/journal-of-applied-probability/article/abs/random-secants-of-a-convex-body/88D6A796A325FC87B94CF4285E1AA489" target="_blank">ref1</a>, <a href="https://arxiv.org/abs/2109.05961" target="_blank">ref2</a>) is to cut random planes through a solid 3-dimensional unit ball. The cross section is a disk. A generalization of <a href="https://en.wikipedia.org/wiki/Crofton_formula" target="_blank">the other Crofton formula</a> can relate the expected area of triangles on that cross section to other properties of the ball.</p>
 <h1 id="generalization-to-๜n-geq-4๞">Generalization to $n \geq 4$</h1>
+<p>$\gdef\seg{\mathsf{SEG}}$</p>
 <p>There are a few ways to generalize Sylvester's problem, such as changing the region, adding more dimensions, and adding more points. For example, <cite>(Buchta, 2009) <a href="https://www.semanticscholar.org/paper/On-the-Number-of-Vertices-of-the-Convex-Hull-of-in-Buchta/d2ba03a430e55cb89cd25789738f773551e75093" target="_blank">On the Number of Vertices of the Convex Hull of Random Points in a Square and a Triangle</a></cite> considers $n \geq 4$ points in a triangle or a square.</p>
-<p>Our main question for $n \geq 4$ points on a disk is answered by <cite>(Marckert, 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite>.</p>
-<p>(TODO)</p>
+<p>Our main question for $n \geq 4$ points on a disk is answered by <cite>(Marckert, 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite>. We'll now sketch their approach.</p>
+<p><img src="/a9online/math-problems/melancholia/t4a.png" alt="Segments" title="Segments"></p>
+<p>The solution will involve recursively dividing the disk into parts, so let's define $\seg(\theta, R)$ to be the <strong>segment</strong> under angle $\theta$ of a disk with radius $R$. Let's call the straight part the <strong>special border</strong> with endpoints $w_1$ and $w_2$. If points $z_1,\dots,z_n$ are randomly chosen inside $\seg(\theta, R)$, define</p>
+$$B_n(\theta) = \prob{w_1,w_2,z_1,\dots,z_n\text{ form a convex }(n+2)\text{-gon in }\seg(\theta, R)}$$<p>And for our main question of random points $z_1,\dots,z_n$ in a full disk, we define</p>
+$$P_n = \prob{z_1,\dots,z_n\text{ form a convex }n\text{-gon in a disk}}$$<p>From the <a href="#move-point-a">Method 2 in Solution 2</a>, pinning one point on the boundary does not change the probability (the paper provides an alternative argument for this).
+Since $\seg(\approx 2\pi, R)$ (rightmost figure) looks like having one point $w_1 \approx w_2$ on the boundary of a full disk, we can handwave (or formally prove) that</p>
+$$P_n = \lim_{\theta\to 2\pi} B_{n-1}(\theta)$$<p>Next, we will derive a recurrence for $B_n(\theta)$. Define a family of segments $\seg(\phi, R_\phi)$ sharing the same special border with $\seg(\theta, R)$ as demonstrated below:</p>
+<p><img src="/a9online/math-problems/melancholia/t4b.gif" alt="A family of segments, now in motion pictures!" title="A family of segments, now in motion pictures!"></p>
+<p>As we slide the center to the left, eventually the segment $\seg(\phi, R_\phi)$ will hit some point $z_j$.</p>
+<p><img src="/a9online/math-problems/melancholia/t4c.png" alt="The first hit" title="The first hit"></p>
+<p>Define random variables:</p>
+<ul>
+<li>$\Phi$ = the value of $\phi$ of the first such segment</li>
+<li>$J$ = the index of that $z_j$</li>
+<li>$\Gamma$ = the signed angle $\gamma$ formed by the horizontal axis, the center of $\seg(\phi, R_\phi)$, and $z_j$ (see the figure)</li>
+</ul>
+<p>The distribution of $J$ is uniform. We can explicitly compute the probability density $f(\phi,\gamma)$ of $(\Phi, \Gamma)$ using a Jacobian. (Proposition 3; The result is rather hideous so we omit it here.)</p>
+<p><img src="/a9online/math-problems/melancholia/t4d.png" alt="The three kingdoms" title="The three kingdoms"></p>
+<p>We now condition on a particular value of $(\Phi,J,\Gamma) = (\phi,j,\gamma)$.
+Triangle $\triangle w_1z_jw_2$ slices $\seg(\phi, R_\phi)$ into 3 parts: segment $S_1$, segment $S_2$, and triangle $S_3$. Let $k_1,k_2,k_3$ be the number of points ending up in each part ($k_1+k_2+k_3 = n-1$). The points are i.i.d. uniform within each part, and the distribution $P(k_1,k_2,k_3)$ is $\textsf{Multinomial}(n-1,\crab{S_1},\crab{S_2},\crab{S_3})$ (after scaling so that $\crab{S_1} + \crab{S_2} + \crab{S_3} = 1$).</p>
+<p>For all the points $w_1,w_2,z_1,\dots,z_n$ to form a convex $(n+2)$-gon:</p>
+<ul>
+<li>No points should be in $S_3$ (i.e., $k_3 = 0$).</li>
+<li>The $k_1$ points in segment $S_1$, along with $w_1$ and $z_j$, should form a convex $(k_1+2)$-gon.</li>
+<li>The $k_2$ points in segment $S_2$, along with $w_2$ and $z_j$, should form a convex $(k_2+2)$-gon.</li>
+</ul>
+<p>This leads to a recurrence of the form</p>
+$$
+\prob{\text{convex}\mid \phi,\gamma} = \sum_{k=0}^{n-1}\prob{k_1=k,k_2=n-1-k,k_3=0}B_k(\dots)B_{n-1-k}(\dots)
+$$<p>(where the angles in $\dots$ depend on $\phi$ and $\gamma$) and the final recurrence is</p>
+$$
+B_n(\theta) = \int_0^\theta\int_{-\phi/2}^{\phi/2}\prob{\text{convex}\mid \phi,\gamma}f(\phi,\gamma)\,d\gamma\,d\phi
+$$<p>Unfortunately, there is no closed form, and the integrals can become quite nasty even for a computer. The paper computes $P_n$ for some small $n$'s such as $P_5 = 1 - 305/48\pi^2$.</p>
 <h1 id="references">References</h1>
 <ul>
 <li><a href="https://mathworld.wolfram.com/SylvestersFour-PointProblem.html" target="_blank">Sylvester's Four-Point Problem: Wolfram MathWorld</a></li>
 <li><a href="https://mathworld.wolfram.com/DiskTrianglePicking.html" target="_blank">Disk Triangle Picking: Wolfram MathWorld</a></li>
-<li><cite>(Marckert, Braz. J. Probab. Stat. 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite></li>
-<li><cite>(Sharpe, arXiv 2021) <a href="https://arxiv.org/abs/2109.05961" target="_blank">Random Hyperplanes of a Convex Body, Sylvester's Problem and Crofton's Formula</a></cite></li>
+<li><a href="https://www.kskedlaya.org/putnam-archive/2006.pdf" target="_blank">Putnam 2006</a> and <a href="https://www.kskedlaya.org/putnam-archive/2006s.pdf" target="_blank">solutions</a></li>
+<li><a href="https://math.stackexchange.com/a/1247948" target="_blank">Expected area of triangle formed by three random points inside unit circle: Math StackExchange</a></li>
+<li><cite>(Buchta, 2009) <a href="https://www.semanticscholar.org/paper/On-the-Number-of-Vertices-of-the-Convex-Hull-of-in-Buchta/d2ba03a430e55cb89cd25789738f773551e75093" target="_blank">On the Number of Vertices of the Convex Hull of Random Points in a Square and a Triangle</a></cite></li>
 <li><cite>(Calka, Stochastic Geometry 2019) <a href="https://hal.archives-ouvertes.fr/hal-02377523/file/ContribCalka_V3.pdf" target="_blank">Some Classical Problems in Random Geometry</a></cite></li>
-<li><a href="http://math.hawaii.edu/home/pdf/putnam/2006.pdf" target="_blank">Putnam 2006</a></li>
-<li><a href="https://math.stackexchange.com/q/1243160" target="_blank">Expected area of triangle formed by three random points inside unit circle: Math StackExchange</a></li>
+<li><cite>(Marckert, Braz. J. Probab. Stat. 2017) <a href="https://arxiv.org/abs/1402.3512" target="_blank">Probability that n random points in a disk are in convex position</a></cite></li>
+<li><cite>(Pfiefer, Mathematics Magazine, Dec 1989.) <a href="https://dornsife.usc.edu/assets/sites/1185/docs/407/Sylvester-4points.pdf" target="_blank">The Historical Development of J. J. Sylvester's Four Point Problem</a></cite></li>
+<li><cite>(Sharpe, arXiv 2021) <a href="https://arxiv.org/abs/2109.05961" target="_blank">Random Hyperplanes of a Convex Body, Sylvester's Problem and Crofton's Formula</a></cite></li>
+<li><cite>(Solomon, 1978) <a href="https://books.google.com/books?id=J1b4BV6K6D8C" target="_blank">Geometric Probability</a></cite></li>
+<li><cite>(Woolhouse, Mathematical Questions with Their Solutions from the Educational Times, Vol. 7., 1867) <a href="https://books.google.com/books?id=tDc-AQAAMAAJ" target="_blank">Some Additional Observations on the Four-Point Problem</a></cite></li>
 </ul>
 </div>
       </div>
-      <div id="content-time">Exported: 2021-11-26T01:32:05.343739</div>
+      <div id="content-time">Exported: 2021-11-27T05:07:48.073798</div>
     </div>
   </div>
 </body>
