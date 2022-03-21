@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[2022-03-21] คำถามฟิสิกส์</title>
+  <link rel="shortcut icon" href="/a9online/static/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">[2022-03-21] คำถามฟิสิกส์</div>
+      <div id="content">
+<p><img src="/a9online/test/physics-1.jpg" alt=""></p>
+<p>ถ้าให้ลองทำใหม่จากบรรทัดแรก:</p>
+$$
+T_1 \sin\alpha + \nail{\frac{T_1\cos\alpha}{\cos\theta}}\sin\theta = mg
+$$<p>คูณ $\cos\theta$ ทั้งสองข้าง:</p>
+$$
+T_1 \sin\alpha \cos\theta + T_1\cos\alpha\sin\theta = mg\cos\theta
+$$<p>จากสูตรตรีโกณ $\sin(\alpha + \theta) = \sin\alpha\cos\theta + \cos\alpha\sin\theta$ สมการก็จะกลายเป็น</p>
+$$\begin{aligned}
+T_1 \sin(\alpha + \theta) &amp;= mg\cos\theta \\
+T_1 &amp;= \frac{mg\cos\theta}{\sin(\alpha + \theta)}
+\end{aligned}$$<p>บรรทัดที่ 2 ไม่น่าใช่เศษส่วน แต่เป็น "ก้อนข้างบนที่ขีดเส้นใต้อยู่ จัดรูปได้เป็นก้อนข้างล่าง"</p>
+<p><img src="/a9online/test/physics-2.jpg" alt=""></p>
+<p>ปกติเวกเตอร์ใช้สัญลักษณ์ $\vec \cdot$ ส่วนหมวก $\hat \cdot$ หมายความว่าเวกเตอร์เป็นเวกเตอร์ความยาว 1 หน่วย</p>
+<p>เวกเตอร์ $\hat i$ กับ $\hat j$ คือเวกเตอร์หน่วยตามแกน X และ Y เวกเตอร์ที่ชี้ไปที่จุด $(a, b)$ ก็จะเป็น $a\hat i + b\hat j$</p>
+<p>$\hat u_r = \cos(\omega t)\,\hat i + \sin(\omega t)\,\hat j$ น่าจะเป็นตำแหน่ง (การกระจัด) ของวัตถุที่เคลื่อนที่เป็นวงกลม ณ เวลา t (วงกลมรัศมี 1 หน่วย ความเร็วคงที่) ดังรูป</p>
+<svg width="280" height="280" stroke="black" fill="white">
+<g transform="translate(140,140)">
+<line x1="-160" y1="0" x2="160" y2="0"></line>
+<line x1="0" y1="-160" x2="0" y2="160"></line>
+<circle cx="60" cy="-80" r="10" fill="yellow"></circle>
+<circle cx="0" cy="0" r="100" fill="none"></circle>
+<g><line x1="0" y1="0" x2="60" y2="-80" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(60,-80) rotate(-53.13010235415598)"></polygon></g>
+<g transform="translate(25,-55)"><foreignObject x="-30" y="-15" width="60" height="30"><div style="line-height: 30px; text-align: center;">$\hat u_r$</div></foreignObject></g>
+<g><line x1="0" y1="0" x2="0" y2="-80" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(0,-80) rotate(-90)"></polygon></g>
+<g transform="translate(-40,-40)"><foreignObject x="-40" y="-15" width="80" height="30"><div style="line-height: 30px; text-align: center;">$\sin(\omega t)\,\hat j$</div></foreignObject></g>
+<g><line x1="0" y1="0" x2="60" y2="0" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(60,0) rotate(0)"></polygon></g>
+<g transform="translate(40,20)"><foreignObject x="-40" y="-15" width="80" height="30"><div style="line-height: 30px; text-align: center;">$\cos(\omega t)\,\hat i$</div></foreignObject></g>
+<line x1="0" y1="-80" x2="60" y2="-80" stroke-dasharray="5,5"></line>
+<line x1="60" y1="0" x2="60" y2="-80" stroke-dasharray="5,5"></line>
+</g>
+</svg>
+
+<p>ไม่รู้ว่าโจทย์ต้องการให้ทำอะไร แต่ดูน่าจะให้คำนวณเวกเตอร์ความเร็วและความเร่ง ณ เวลา t</p>
+<p>ความเร็วเฉลี่ยในช่วงเวลา คือ การกระจัดที่เปลี่ยนไปในช่วงเวลา หาร เวลาที่ใช้ ($v_\text{avg} = \frac{\Delta u}{\Delta t}$) ถ้าทำให้เวลาที่ใช้เล็กมาก ๆ ก็จะได้ความเร็ว ณ จุดเวลา ซึ่งสามารถคำนวณได้ด้วยการเทคดิฟ ($v = \fracd{u}{t}$)</p>
+$$\begin{aligned}
+\hat u_r &amp;= \cos(\omega t)\,\hat i + \sin(\omega t)\,\hat j \\
+\fracd{\hat u_r}{t}
+&amp;= \fracd{}{t}\nail{\cos(\omega t)\,\hat i + \sin(\omega t)\,\hat j} \\
+&amp;= \fracd{}{t}\cos(\omega t)\,\hat i + \fracd{}{t}\sin(\omega t)\,\hat j \\
+&amp;= \nail{-\sin(\omega t)\fracd{\omega t}{t}}\hat i + \nail{\cos(\omega t)\fracd{\omega t}{t}}\hat j \\
+&amp;= \nail{-\sin(\omega t)\,\omega}\hat i + \nail{\cos(\omega t)\,\omega}\hat j \\
+&amp;= \omega\nail{-\sin(\omega t)\,\hat i + \cos(\omega t)\,\hat j} \\
+\end{aligned}$$<p>(บรรทัดที่ 3 ดิฟแจกการบวกได้, บรรทัดที่ 4 ใช้กฎลูกโซ่ $\fracd{f(\square)}{t} = \fracd{f(\square)}{\square}\,\fracd{\square}{t}$)</p>
+<p>ถ้านิยาม $\hat u_\theta := -\sin(\omega t)\,\hat i + \cos(\omega t)\,\hat j$ เราก็จะได้ $\fracd{\hat u_r}{t} = \omega \hat u_\theta$ ถ้าวาด $\hat u_\theta$ ให้พุ่งออกจากวัตถุ ก็จะพบว่ามันเป็นเวกเตอร์หน่วยที่สัมผัสวงกลมตรงวัตถุ</p>
+<svg width="280" height="280" stroke="black" fill="white">
+<g transform="translate(140,140)">
+<line x1="-160" y1="0" x2="160" y2="0"></line>
+<line x1="0" y1="-160" x2="0" y2="160"></line>
+<circle cx="60" cy="-80" r="10" fill="yellow"></circle>
+<circle cx="0" cy="0" r="100" fill="none"></circle>
+<g><line x1="0" y1="0" x2="60" y2="-80" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(60,-80) rotate(-53.13010235415598)"></polygon></g>
+<g transform="translate(25,-55)"><foreignObject x="-30" y="-15" width="60" height="30"><div style="line-height: 30px; text-align: center;">$\hat u_r$</div></foreignObject></g>
+<g><line x1="60" y1="-80" x2="-20" y2="-140" stroke="black"></line><polygon points="0,0 -6,3 -6,-3" stroke="none" fill="black" transform="translate(-20,-140) rotate(-143.13010235415598)"></polygon></g>
+<g transform="translate(25,-125)"><foreignObject x="-30" y="-15" width="60" height="30"><div style="line-height: 30px; text-align: center;">$\hat u_\theta$</div></foreignObject></g>
+</g>
+</svg>
+
+<p>ถ้าจะหาความเร่ง ก็ดิฟอีกครั้ง</p>
+$$
+\fracd{}{t}\fracd{\hat u_r}{t} = \fracd{}{t}\omega \hat u_\theta = \omega \fracd{\hat u_\theta}{t}
+$$<p>(บางคนใช้ $\fracd{^2}{t^2}$ สำหรับการดิฟสองครั้ง แต่มันทำให้สับสนง่าย)</p>
+$$\begin{aligned}
+\fracd{\hat u_\theta}{t}
+&amp;= \fracd{}{t}\nail{-\sin(\omega t)\,\hat i + \cos(\omega t)\,\hat j} \\
+&amp;= -\fracd{}{t}\sin(\omega t)\,\hat i + \fracd{}{t}\cos(\omega t)\,\hat j \\
+&amp;= -\nail{\cos(\omega t)\fracd{\omega t}{t}}\hat i + \nail{-\sin(\omega t)\fracd{\omega t}{t}}\hat j \\
+&amp;= -\nail{\cos(\omega t)\,\omega}\hat i + \nail{-\sin(\omega t)\,\omega}\hat j \\
+&amp;= -\omega\nail{\cos(\omega t)\,\hat i + \sin(\omega t)\,\hat j} \\
+&amp;= -\omega\hat u_r
+\end{aligned}$$<p>ดังนั้นความเร่งคือ $\omega\times(-\omega \hat u_r) = -\omega^2 \hat u_r$</p>
+
+      </div>
+      <div id="content-time">Exported: 2022-03-21T14:40:00.843933</div>
+    </div>
+  </div>
+</body>
+
+</html>
