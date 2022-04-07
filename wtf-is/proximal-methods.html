@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proximal Methods</title>
+  <link rel="shortcut icon" href="/a9online/static/favicon-pad.png">
+  <link rel="stylesheet" href="/a9online/static/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" />
+  <link rel="stylesheet" href="/a9online/static/viewer-style.css" />
+  <link rel="stylesheet" href="/a9online/static/content-style.css" />
+  <link rel="stylesheet" href="/a9online/static/print-style.css" media="print" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js"></script>
+  <script src="/a9online/static/render-math.js"></script>
+  <script src="/a9online/static/spoiler.js"></script>
+</head>
+
+<body onload="RENDER_MATH.render(document.body);">
+  <div id="wrapper">
+    <div id="content-frame">
+      <div id="content-name">Proximal Methods</div>
+      <div id="content">
+<p>The main idea of <strong>Proximal Method</strong> is to do gradient descent on $f$ with some "damping", even when the gradient does not exist. It is suitable for getting a "good-enough" answer for large data.</p>
+<h1 id="definition">Definition</h1>
+<p><strong><em>Definition</em></strong> Let $f$ be a convex function (with nonempty close convex <a href="http://en.wikipedia.org/wiki/Epigraph_%28mathematics%29" target="_blank">epigraph</a>). The <strong>proximal operator</strong> of $f$ is</p>
+$$\Mr{prox}_f(v) = \argmin_x\nail{f(x) + \frac{1}{2}\norm{x-v}_2^2}$$<p>More generally, we can scale the regularization term:</p>
+$$\Mr{prox}_{\lambda f}(v) = \argmin_x\nail{f(x) + \frac{1}{2\lambda}\norm{x-v}_2^2}$$<p>Interestingly, $\Mr{prox}_{\lambda f}(v)$ is defined everywhere, even when $v$ is not in the domain of $f$.</p>
+<p><strong><em>Example</em></strong> $f(x) = \norm{x}_1$ has proximal</p>
+$$\Mr{prox}_{\lambda f}(v) = \cases{
+v-\lambda &amp; \cif v-\lambda &gt; 0 \\
+v+\lambda &amp; \cif v+\lambda &lt; 0 \\
+0 &amp; \cotherw
+}$$<p><img src="/a9online/wtf-is/prox-abs.png" alt="Proximal of absolute function" title="Proximal of absolute function"></p>
+<h1 id="interpretations">Interpretations</h1>
+<h2 id="generalized-gradient-descent">Generalized Gradient Descent</h2>
+<p><img src="/a9online/wtf-is/prox-descent.png" alt="Proximal as Generalized Gradient Descent" title="Proximal as Generalized Gradient Descent"></p>
+<p>The colored area is the domain of $f$ (darker = lower), the blue points are $v$, and the red points are $\Mr{prox}_f(v)$. Suppose we move from $v$ to $\Mr{prox}_f(v)$:</p>
+<ul>
+<li>Points inside the domain moves to a lower point. Intuitively, $\Mr{prox}_f(v)$ is the middle ground between minimizing $f$ and being near $v$.</li>
+<li>Points outside the domain moves to the boundary of $f$.</li>
+</ul>
+<h2 id="generalized-projection">Generalized Projection</h2>
+<p><img src="/a9online/wtf-is/prox-project.png" alt="Proximal as Generalized Projection" title="Proximal as Generalized Projection"></p>
+<p>If $C$ is a convex set and</p>
+$$f = \II_C = \cases{0 &amp;\cif x\in C \\ \infty &amp;\cotherw}$$<p>then the proximal of $f$ is the projection onto $C$:</p>
+$$\Mr{prox}_f(v) = \Pi_C(v) = \argmin_{x\in C}\norm{x-v}_2^2$$<h1 id="properties">Properties</h1>
+<ul>
+<li>(Separability)$$f(x,y) = \phi(x) + \psi(y) \quad\Rightarrow\quad \Mr{prox}_f(v,w) = \nail{\Mr{prox}_\phi(v), \Mr{prox}_\psi(w)}$$  However, $f(x,y) = f_1(x,y) + f_2(x,y)$ cannot be separated.</li>
+<li>(Post-composition)$$f(x) = a\phi(x) + b \quad\Rightarrow\quad \Mr{prox}_{\lambda f}(v) = \Mr{prox}_{(a\lambda)\phi}(v)$$</li>
+<li>(Pre-composition) -- not that important$$f(x) = \phi(ax + b) \quad\Rightarrow\quad \Mr{prox}_{\lambda f}(v) = \frac{1}{a}\nail{\Mr{prox}_{(a^2\lambda)\phi}(ax + b) - b}$$</li>
+<li>(Affine transformation)$$f(x) = \phi(x) + a\T x + b \quad\Rightarrow\quad \Mr{prox}_{\lambda f}(v) =  \Mr{prox}_{\lambda \phi}(v - \lambda a)$$</li>
+<li>(Standard regularization)$$f(x) = \phi(x) + \frac{\rho}{2}(x-a)^2 \quad\Rightarrow\quad \Mr{prox}_{\lambda f}(v) =  \Mr{prox}_{\lambda \phi}\nail{\frac{\tilde{\lambda}}{\lambda}v + p\tilde{\lambda}a}$$  where $\tilde{\lambda} = \lambda/(1+\rho\lambda)$</li>
+</ul>
+<p><strong><em>Conclusion</em></strong> If we know $\phi(x)$ and $\Mr{prox}_{\lambda \phi}$, we can do stuff with $\phi$ (like regularizing it) and still know the proximal.</p>
+<h1 id="proximal-gradient-method">Proximal Gradient Method</h1>
+<p>Because proximal is similar to gradient descent, we can minimize a convex function $f$ using the update rule</p>
+$$x^{(k+1)} \gets \Mr{prox}_f(x^{(k)})$$<p><strong><em>Example</em></strong> Suppose we want to minimize $f(x) + g(x)$ where $f$ is smooth but $g$ is not smooth (e.g., L1 regularization or encoded constraints). If we try to do gradient descent, we get</p>
+$$x^{(k+1)} \gets x^{(k)} - \eta_k\nabla f(x^{(k)}) - \eta_k\nabla g(x^{(k)})$$<p>The problem is that $\nabla g(x^{(k)})$ does not exist. So we instead use the <strong>proximal update</strong>:</p>
+$$x^{(k+1)} \gets \Mr{prox}_{\eta_k g}\crab{x^{(k)} - \eta_k\nabla f(x^{(k)})}$$<p>Basically, we converted $- \eta_k\nabla g(x^{(k)})$ to the proximal operator.</p>
+<p><strong><em>Example</em></strong> Let $f(x) = \frac{1}{2}x\T A x - b\T x$ where $A$ is positive definite. We know from calculus that $\argmin f(x)$ can be found by solving $Ax = b$. We can use proximal gradient method to get an iterative algorithm:</p>
+$$\begin{aligned}
+\Mr{prox}_{\lambda f}(v) 
+&amp;= \argmin_x \crab{\frac{1}{2}x\T A x - b\T x + \frac{1}{2\lambda}\norm{x-v}_2^2} \\
+&amp;= \text{... calculus ...} \\
+&amp;= v + (A + \epsilon I)^{-1} (b - Av)
+\end{aligned}$$<p>where $\epsilon = 1/\lambda$. The update rule is</p>
+$$x^{(k+1)} \gets x^{(k)} + (A + \epsilon I)^{-1} (b - Ax^{(k)})$$<p>The update rule above is called <strong>iterative refinement</strong>, which is particularly useful when $A$ is singular.</p>
+<h1 id="alternating-direction-method-of-multipliers-admm">Alternating Direction Method of Multipliers (ADMM)</h1>
+<p><strong><em>Setup</em></strong> Suppose we want to minimize $f(x) + g(x)$ where both $f$ and $g$ are not smooth. (Additionally, domains of $f$ and $g$ don't have to be the same!) Then the <strong>alternating direction method of multipliers</strong> (ADMM) is the following iterative update rules:</p>
+$$\begin{aligned}
+x^{(k+1)} &amp;\gets \Mr{prox}_{\lambda f}(z^{(k)} - u^{(k)}) \\
+z^{(k+1)} &amp;\gets \Mr{prox}_{\lambda g}(x^{(k+1)} + u^{(k)}) \\
+u^{(k+1)} &amp;\gets u^{(k)} + (x^{(k+1)} - z^{(k+1)})
+\end{aligned}$$<p>The variables $x \in \operatorname{dom} f$ and $z \in \operatorname{dom} g$ converge to the same optimal value, while $u$ acts as a controller.</p>
+<p><strong><em>Special Case</em></strong> When $g = \II_C$ ($\Mr{prox}_g(v) = \Pi_C(v)$), ADMM is solving an optimization problem with convex constraint.</p>
+<h1 id="theory">Theory</h1>
+<p><strong><em>Theorem</em></strong> $x^*$ minimizes $f$ if and only if $x^* = \Mr{prox}_f(x^*)$</p>
+<p><strong><em>Proof</em></strong>
+($\Rightarrow$) For all $x$,</p>
+$$\begin{aligned}
+f(x^*) &amp;\leq f(x) \\
+\underbrace{\frac{1}{2}\norm{x^* - x^*}_2^2}_{=0} + f(x^*) &amp;\leq f(x) + \underbrace{\frac{1}{2}\norm{x - x^*}_2^2}_{\geq 0}
+\end{aligned}$$<p>Therefore, by definition, $x^* = \Mr{prox}_f(x^*)$.</p>
+<p>($\Leftarrow$) We use the following property of <a href="http://en.wikipedia.org/wiki/Subderivative" target="_blank">subdifferential</a> (non-smooth generalization of derivative on convex functions):</p>
+$$\tilde{x} \text{ minimizes } g(x) \Leftrightarrow 0 \in \partial g(\tilde{x})$$<p>Let $g$ be the thing in the definition of proximal:</p>
+$$\tilde{x} \text{ minimizes } \crab{f(x) + \frac{1}{2}\norm{x - v}_2^2} \Leftrightarrow 0 \in \partial f(\tilde{x}) + (\tilde{x} - v)$$<p>Substitute $\tilde{x} = v = x^*$. We get $0 \in \partial f(x^*)$, meaning $x^*$ minimizes $f$. □</p>
+<h1 id="reference">Reference</h1>
+<p><a href="http://www.stanford.edu/~boyd/papers/prox_algs.html" target="_blank">http://www.stanford.edu/~boyd/papers/prox_algs.html</a></p>
+
+      </div>
+      <div id="content-time">Exported: 2022-04-07T16:32:47.770160</div>
+    </div>
+  </div>
+</body>
+
+</html>
